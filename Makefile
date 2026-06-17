@@ -1,4 +1,4 @@
-CPPFLAGS = -I include -Wall -Werror -pthread
+CFLAGS = -Wall -Wextra -Werror -Wno-address-of-packed-member -Wno-sign-compare -Wno-unused-parameter -I include
 
 src = $(wildcard src/*.c)
 obj = $(patsubst src/%.c, build/%.o, $(src))
