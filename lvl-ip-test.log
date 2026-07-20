@@ -1,0 +1,277 @@
+TCP 10.0.0.4.40851 > 10.0.0.5.8001: Flags [S1A0P0F0R0], seq 0:0, ack 0, win 44477 rto 0 boff 0 - src/tcp_output.c:117
+TCP 10.0.0.5.8001 > 10.0.0.4.40851: Flags [S1A1P0F0R0], seq 1984604882:1984604882, ack 1, win 64240 rto 0 boff 0 - src/tcp.c:78
+TCP x:40851 > 10.0.0.5.8001 (snd_una 0, snd_nxt 1, snd_wnd 0, snd_wl1 0, snd_wl2 0, rcv_nxt 0, rcv_wnd 44477 recv-q 0 send-q 1 rto 0 boff 0) state TCP_SYNSENT: input state - src/tcp_input.c:269
+TCP x:40851 > 10.0.0.5.8001 (snd_una 0, snd_nxt 1, snd_wnd 0, snd_wl1 0, snd_wl2 0, rcv_nxt 0, rcv_wnd 44477 recv-q 0 send-q 1 rto 0 boff 0) state TCP_SYNSENT: state is synsent - src/tcp_input.c:153
+TCP x:40851 > 10.0.0.5.8001 (snd_una 1, snd_nxt 1, snd_wnd 0, snd_wl1 0, snd_wl2 0, rcv_nxt 1, rcv_wnd 44477 recv-q 0 send-q 0 rto 0 boff 0) state TCP_SYNSENT: state is now TCP_ESTABLISHED - src/tcp_input.c:192
+TCP 10.0.0.4.40851 > 10.0.0.5.8001: Flags [S0A1P0F0R0], seq 1:1, ack 1, win 44477 rto 1000 boff 0 - src/tcp_output.c:117
+TCP x:40851 > 10.0.0.5.8001 (snd_una 1, snd_nxt 1, snd_wnd 0, snd_wl1 0, snd_wl2 0, rcv_nxt 1, rcv_wnd 44477 recv-q 0 send-q 0 rto 1000 boff 0) state TCP_ESTABLISHED: dropping packet - src/tcp_input.c:208
+TCP 10.0.0.4.40851 > 10.0.0.5.8001: Flags [S0A1P1F0R0], seq 1:59, ack 1, win 44477 rto 1000 boff 0 - src/tcp_output.c:117
+TCP 10.0.0.5.8001 > 10.0.0.4.40851: Flags [S0A1P0F0R0], seq 1:1, ack 59, win 64182 rto 1000 boff 0 - src/tcp.c:78
+TCP x:40851 > 10.0.0.5.8001 (snd_una 1, snd_nxt 59, snd_wnd 0, snd_wl1 0, snd_wl2 0, rcv_nxt 1, rcv_wnd 44477 recv-q 0 send-q 1 rto 1000 boff 0) state TCP_ESTABLISHED: input state - src/tcp_input.c:269
+TCP 10.0.0.5.8001 > 10.0.0.4.40851: Flags [S0A1P1F0R0], seq 1:157, ack 59, win 64182 rto 210 boff 0 - src/tcp.c:78
+TCP x:40851 > 10.0.0.5.8001 (snd_una 59, snd_nxt 59, snd_wnd 0, snd_wl1 0, snd_wl2 0, rcv_nxt 1, rcv_wnd 44477 recv-q 0 send-q 0 rto 210 boff 0) state TCP_ESTABLISHED: input state - src/tcp_input.c:269
+TCP 10.0.0.4.40851 > 10.0.0.5.8001: Flags [S0A1P0F0R0], seq 59:59, ack 157, win 44477 rto 210 boff 0 - src/tcp_output.c:117
+TCP 10.0.0.5.8001 > 10.0.0.4.40851: Flags [S0A1P1F1R0], seq 157:974, ack 59, win 64182 rto 210 boff 0 - src/tcp.c:78
+TCP x:40851 > 10.0.0.5.8001 (snd_una 59, snd_nxt 59, snd_wnd 0, snd_wl1 0, snd_wl2 0, rcv_nxt 157, rcv_wnd 44477 recv-q 0 send-q 0 rto 210 boff 0) state TCP_ESTABLISHED: input state - src/tcp_input.c:269
+TCP x:40851 > 10.0.0.5.8001 (snd_una 59, snd_nxt 59, snd_wnd 0, snd_wl1 0, snd_wl2 0, rcv_nxt 974, rcv_wnd 44477 recv-q 1 send-q 0 rto 210 boff 0) state TCP_ESTABLISHED: Received in-sequence FIN - src/tcp_input.c:419
+TCP 10.0.0.4.40851 > 10.0.0.5.8001: Flags [S0A1P0F0R0], seq 59:59, ack 975, win 44477 rto 210 boff 0 - src/tcp_output.c:117
+TCP x:40851 > 10.0.0.5.8001 (snd_una 59, snd_nxt 59, snd_wnd 0, snd_wl1 0, snd_wl2 0, rcv_nxt 975, rcv_wnd 44477 recv-q 1 send-q 0 rto 210 boff 0) state TCP_ESTABLISHED: state is now TCP_CLOSE_WAIT - src/tcp_input.c:439
+TCP x:40851 > 10.0.0.5.8001 (snd_una 59, snd_nxt 59, snd_wnd 0, snd_wl1 0, snd_wl2 0, rcv_nxt 975, rcv_wnd 44477 recv-q 0 send-q 0 rto 210 boff 0) state TCP_CLOSE_WAIT: Queueing fin - src/tcp_output.c:518
+TCP 10.0.0.4.40851 > 10.0.0.5.8001: Flags [S0A1P0F1R0], seq 59:59, ack 975, win 44477 rto 210 boff 0 - src/tcp_output.c:117
+TCP 10.0.0.5.8001 > 10.0.0.4.40851: Flags [S0A1P0F0R0], seq 975:975, ack 60, win 64182 rto 210 boff 0 - src/tcp.c:78
+TCP x:40851 > 10.0.0.5.8001 (snd_una 59, snd_nxt 60, snd_wnd 0, snd_wl1 0, snd_wl2 0, rcv_nxt 975, rcv_wnd 44477 recv-q 0 send-q 1 rto 210 boff 0) state TCP_CLOSE_WAIT: input state - src/tcp_input.c:269
+TCP 10.0.0.4.40902 > 10.0.0.5.8001: Flags [S1A0P0F0R0], seq 0:0, ack 0, win 44477 rto 0 boff 0 - src/tcp_output.c:117
+TCP 10.0.0.5.8001 > 10.0.0.4.40902: Flags [S1A1P0F0R0], seq 3485991429:3485991429, ack 1, win 64240 rto 0 boff 0 - src/tcp.c:78
+TCP x:40902 > 10.0.0.5.8001 (snd_una 0, snd_nxt 1, snd_wnd 0, snd_wl1 0, snd_wl2 0, rcv_nxt 0, rcv_wnd 44477 recv-q 0 send-q 1 rto 0 boff 0) state TCP_SYNSENT: input state - src/tcp_input.c:269
+TCP x:40902 > 10.0.0.5.8001 (snd_una 0, snd_nxt 1, snd_wnd 0, snd_wl1 0, snd_wl2 0, rcv_nxt 0, rcv_wnd 44477 recv-q 0 send-q 1 rto 0 boff 0) state TCP_SYNSENT: state is synsent - src/tcp_input.c:153
+TCP x:40902 > 10.0.0.5.8001 (snd_una 1, snd_nxt 1, snd_wnd 0, snd_wl1 0, snd_wl2 0, rcv_nxt 1, rcv_wnd 44477 recv-q 0 send-q 0 rto 0 boff 0) state TCP_SYNSENT: state is now TCP_ESTABLISHED - src/tcp_input.c:192
+TCP 10.0.0.4.40902 > 10.0.0.5.8001: Flags [S0A1P0F0R0], seq 1:1, ack 1, win 44477 rto 1000 boff 0 - src/tcp_output.c:117
+TCP x:40902 > 10.0.0.5.8001 (snd_una 1, snd_nxt 1, snd_wnd 0, snd_wl1 0, snd_wl2 0, rcv_nxt 1, rcv_wnd 44477 recv-q 0 send-q 0 rto 1000 boff 0) state TCP_ESTABLISHED: dropping packet - src/tcp_input.c:208
+TCP 10.0.0.4.40902 > 10.0.0.5.8001: Flags [S0A1P1F0R0], seq 1:59, ack 1, win 44477 rto 1000 boff 0 - src/tcp_output.c:117
+TCP 10.0.0.5.8001 > 10.0.0.4.40902: Flags [S0A1P0F0R0], seq 1:1, ack 59, win 64182 rto 1000 boff 0 - src/tcp.c:78
+TCP x:40902 > 10.0.0.5.8001 (snd_una 1, snd_nxt 59, snd_wnd 0, snd_wl1 0, snd_wl2 0, rcv_nxt 1, rcv_wnd 44477 recv-q 0 send-q 1 rto 1000 boff 0) state TCP_ESTABLISHED: input state - src/tcp_input.c:269
+TCP 10.0.0.5.8001 > 10.0.0.4.40902: Flags [S0A1P1F0R0], seq 1:157, ack 59, win 64182 rto 200 boff 0 - src/tcp.c:78
+TCP x:40902 > 10.0.0.5.8001 (snd_una 59, snd_nxt 59, snd_wnd 0, snd_wl1 0, snd_wl2 0, rcv_nxt 1, rcv_wnd 44477 recv-q 0 send-q 0 rto 200 boff 0) state TCP_ESTABLISHED: input state - src/tcp_input.c:269
+TCP 10.0.0.4.40902 > 10.0.0.5.8001: Flags [S0A1P0F0R0], seq 59:59, ack 157, win 44477 rto 200 boff 0 - src/tcp_output.c:117
+TCP 10.0.0.5.8001 > 10.0.0.4.40902: Flags [S0A1P1F1R0], seq 157:974, ack 59, win 64182 rto 200 boff 0 - src/tcp.c:78
+TCP x:40902 > 10.0.0.5.8001 (snd_una 59, snd_nxt 59, snd_wnd 0, snd_wl1 0, snd_wl2 0, rcv_nxt 157, rcv_wnd 44477 recv-q 1 send-q 0 rto 200 boff 0) state TCP_ESTABLISHED: input state - src/tcp_input.c:269
+TCP x:40902 > 10.0.0.5.8001 (snd_una 59, snd_nxt 59, snd_wnd 0, snd_wl1 0, snd_wl2 0, rcv_nxt 974, rcv_wnd 44477 recv-q 2 send-q 0 rto 200 boff 0) state TCP_ESTABLISHED: Received in-sequence FIN - src/tcp_input.c:419
+TCP 10.0.0.4.40902 > 10.0.0.5.8001: Flags [S0A1P0F0R0], seq 59:59, ack 975, win 44477 rto 200 boff 0 - src/tcp_output.c:117
+TCP x:40902 > 10.0.0.5.8001 (snd_una 59, snd_nxt 59, snd_wnd 0, snd_wl1 0, snd_wl2 0, rcv_nxt 975, rcv_wnd 44477 recv-q 2 send-q 0 rto 200 boff 0) state TCP_ESTABLISHED: state is now TCP_CLOSE_WAIT - src/tcp_input.c:439
+TCP x:40902 > 10.0.0.5.8001 (snd_una 59, snd_nxt 59, snd_wnd 0, snd_wl1 0, snd_wl2 0, rcv_nxt 975, rcv_wnd 44477 recv-q 0 send-q 0 rto 200 boff 0) state TCP_CLOSE_WAIT: Queueing fin - src/tcp_output.c:518
+TCP 10.0.0.4.40902 > 10.0.0.5.8001: Flags [S0A1P0F1R0], seq 59:59, ack 975, win 44477 rto 200 boff 0 - src/tcp_output.c:117
+TCP 10.0.0.5.8001 > 10.0.0.4.40902: Flags [S0A1P0F0R0], seq 975:975, ack 60, win 64182 rto 200 boff 0 - src/tcp.c:78
+TCP x:40902 > 10.0.0.5.8001 (snd_una 59, snd_nxt 60, snd_wnd 0, snd_wl1 0, snd_wl2 0, rcv_nxt 975, rcv_wnd 44477 recv-q 0 send-q 1 rto 200 boff 0) state TCP_CLOSE_WAIT: input state - src/tcp_input.c:269
+TCP 10.0.0.4.40943 > 10.0.0.5.9999: Flags [S1A0P0F0R0], seq 0:0, ack 0, win 44477 rto 0 boff 0 - src/tcp_output.c:117
+TCP 10.0.0.5.9999 > 10.0.0.4.40943: Flags [S0A1P0F0R1], seq 0:0, ack 1, win 0 rto 0 boff 0 - src/tcp.c:78
+TCP x:40943 > 10.0.0.5.9999 (snd_una 0, snd_nxt 1, snd_wnd 0, snd_wl1 0, snd_wl2 0, rcv_nxt 0, rcv_wnd 44477 recv-q 0 send-q 1 rto 0 boff 0) state TCP_SYNSENT: input state - src/tcp_input.c:269
+TCP x:40943 > 10.0.0.5.9999 (snd_una 0, snd_nxt 1, snd_wnd 0, snd_wl1 0, snd_wl2 0, rcv_nxt 0, rcv_wnd 44477 recv-q 0 send-q 1 rto 0 boff 0) state TCP_SYNSENT: state is synsent - src/tcp_input.c:153
+TCP x:40943 > 10.0.0.5.9999 (snd_una 0, snd_nxt 1, snd_wnd 0, snd_wl1 0, snd_wl2 0, rcv_nxt 0, rcv_wnd 44477 recv-q 0 send-q 1 rto 0 boff 0) state TCP_SYNSENT: state is now TCP_CLOSING - src/tcp.c:312
+TCP x:40943 > 10.0.0.5.9999 (snd_una 0, snd_nxt 1, snd_wnd 0, snd_wl1 0, snd_wl2 0, rcv_nxt 0, rcv_wnd 44477 recv-q 0 send-q 1 rto 0 boff 0) state TCP_CLOSING: dropping packet - src/tcp_input.c:208
+TCP 10.0.0.4.40964 > 10.0.0.5.8004: Flags [S1A0P0F0R0], seq 0:0, ack 0, win 44477 rto 0 boff 0 - src/tcp_output.c:117
+TCP 10.0.0.5.8004 > 10.0.0.4.40964: Flags [S1A1P0F0R0], seq 3247756422:3247756422, ack 1, win 64240 rto 0 boff 0 - src/tcp.c:78
+TCP x:40964 > 10.0.0.5.8004 (snd_una 0, snd_nxt 1, snd_wnd 0, snd_wl1 0, snd_wl2 0, rcv_nxt 0, rcv_wnd 44477 recv-q 0 send-q 1 rto 0 boff 0) state TCP_SYNSENT: input state - src/tcp_input.c:269
+TCP x:40964 > 10.0.0.5.8004 (snd_una 0, snd_nxt 1, snd_wnd 0, snd_wl1 0, snd_wl2 0, rcv_nxt 0, rcv_wnd 44477 recv-q 0 send-q 1 rto 0 boff 0) state TCP_SYNSENT: state is synsent - src/tcp_input.c:153
+TCP x:40964 > 10.0.0.5.8004 (snd_una 1, snd_nxt 1, snd_wnd 0, snd_wl1 0, snd_wl2 0, rcv_nxt 1, rcv_wnd 44477 recv-q 0 send-q 0 rto 0 boff 0) state TCP_SYNSENT: state is now TCP_ESTABLISHED - src/tcp_input.c:192
+TCP 10.0.0.4.40964 > 10.0.0.5.8004: Flags [S0A1P0F0R0], seq 1:1, ack 1, win 44477 rto 1000 boff 0 - src/tcp_output.c:117
+TCP x:40964 > 10.0.0.5.8004 (snd_una 1, snd_nxt 1, snd_wnd 0, snd_wl1 0, snd_wl2 0, rcv_nxt 1, rcv_wnd 44477 recv-q 0 send-q 0 rto 1000 boff 0) state TCP_ESTABLISHED: dropping packet - src/tcp_input.c:208
+TCP 10.0.0.4.40964 > 10.0.0.5.8004: Flags [S0A1P1F0R0], seq 1:59, ack 1, win 44477 rto 1000 boff 0 - src/tcp_output.c:117
+TCP 10.0.0.4.40985 > 10.0.0.5.8003: Flags [S1A0P0F0R0], seq 0:0, ack 0, win 44477 rto 0 boff 0 - src/tcp_output.c:117
+TCP 10.0.0.5.8003 > 10.0.0.4.40985: Flags [S1A1P0F0R0], seq 3675720359:3675720359, ack 1, win 64240 rto 0 boff 0 - src/tcp.c:78
+TCP x:40985 > 10.0.0.5.8003 (snd_una 0, snd_nxt 1, snd_wnd 0, snd_wl1 0, snd_wl2 0, rcv_nxt 0, rcv_wnd 44477 recv-q 0 send-q 1 rto 0 boff 0) state TCP_SYNSENT: input state - src/tcp_input.c:269
+TCP x:40985 > 10.0.0.5.8003 (snd_una 0, snd_nxt 1, snd_wnd 0, snd_wl1 0, snd_wl2 0, rcv_nxt 0, rcv_wnd 44477 recv-q 0 send-q 1 rto 0 boff 0) state TCP_SYNSENT: state is synsent - src/tcp_input.c:153
+TCP x:40985 > 10.0.0.5.8003 (snd_una 1, snd_nxt 1, snd_wnd 0, snd_wl1 0, snd_wl2 0, rcv_nxt 1, rcv_wnd 44477 recv-q 0 send-q 0 rto 0 boff 0) state TCP_SYNSENT: state is now TCP_ESTABLISHED - src/tcp_input.c:192
+TCP 10.0.0.4.40985 > 10.0.0.5.8003: Flags [S0A1P0F0R0], seq 1:1, ack 1, win 44477 rto 1000 boff 0 - src/tcp_output.c:117
+TCP x:40985 > 10.0.0.5.8003 (snd_una 1, snd_nxt 1, snd_wnd 0, snd_wl1 0, snd_wl2 0, rcv_nxt 1, rcv_wnd 44477 recv-q 0 send-q 0 rto 1000 boff 0) state TCP_ESTABLISHED: dropping packet - src/tcp_input.c:208
+TCP 10.0.0.5.8003 > 10.0.0.4.40985: Flags [S1A1P0F0R0], seq 0:0, ack 1, win 64240 rto 1000 boff 0 - src/tcp.c:78
+TCP x:40985 > 10.0.0.5.8003 (snd_una 1, snd_nxt 1, snd_wnd 0, snd_wl1 0, snd_wl2 0, rcv_nxt 1, rcv_wnd 44477 recv-q 0 send-q 0 rto 1000 boff 0) state TCP_ESTABLISHED: input state - src/tcp_input.c:269
+TCP x:40985 > 10.0.0.5.8003 (snd_una 1, snd_nxt 1, snd_wnd 0, snd_wl1 0, snd_wl2 0, rcv_nxt 1, rcv_wnd 44477 recv-q 0 send-q 0 rto 1000 boff 0) state TCP_ESTABLISHED: Received invalid segment - src/tcp_input.c:108
+TCP 10.0.0.4.40985 > 10.0.0.5.8003: Flags [S0A1P0F0R0], seq 1:1, ack 1, win 44477 rto 1000 boff 0 - src/tcp_output.c:117
+TCP x:40985 > 10.0.0.5.8003 (snd_una 1, snd_nxt 1, snd_wnd 0, snd_wl1 0, snd_wl2 0, rcv_nxt 1, rcv_wnd 44477 recv-q 0 send-q 0 rto 1000 boff 0) state TCP_ESTABLISHED: dropping packet - src/tcp_input.c:290
+TCP 10.0.0.4.40985 > 10.0.0.5.8003: Flags [S0A1P1F0R0], seq 1:59, ack 1, win 44477 rto 1000 boff 0 - src/tcp_output.c:117
+TCP 10.0.0.5.8003 > 10.0.0.4.40985: Flags [S0A1P0F0R0], seq 1:1, ack 59, win 64182 rto 1000 boff 0 - src/tcp.c:78
+TCP x:40985 > 10.0.0.5.8003 (snd_una 1, snd_nxt 59, snd_wnd 0, snd_wl1 0, snd_wl2 0, rcv_nxt 1, rcv_wnd 44477 recv-q 0 send-q 1 rto 1000 boff 0) state TCP_ESTABLISHED: input state - src/tcp_input.c:269
+TCP 10.0.0.5.8004 > 10.0.0.4.40964: Flags [S0A1P1F0R0], seq 1:157, ack 59, win 64182 rto 1000 boff 0 - src/tcp.c:78
+TCP x:40964 > 10.0.0.5.8004 (snd_una 1, snd_nxt 59, snd_wnd 0, snd_wl1 0, snd_wl2 0, rcv_nxt 1, rcv_wnd 44477 recv-q 0 send-q 1 rto 1000 boff 0) state TCP_ESTABLISHED: input state - src/tcp_input.c:269
+TCP 10.0.0.4.40964 > 10.0.0.5.8004: Flags [S0A1P0F0R0], seq 59:59, ack 157, win 44477 rto 220 boff 0 - src/tcp_output.c:117
+TCP 10.0.0.5.8004 > 10.0.0.4.40964: Flags [S0A1P1F1R0], seq 157:974, ack 59, win 64182 rto 220 boff 0 - src/tcp.c:78
+TCP x:40964 > 10.0.0.5.8004 (snd_una 59, snd_nxt 59, snd_wnd 0, snd_wl1 0, snd_wl2 0, rcv_nxt 157, rcv_wnd 44477 recv-q 0 send-q 0 rto 220 boff 0) state TCP_ESTABLISHED: input state - src/tcp_input.c:269
+TCP x:40964 > 10.0.0.5.8004 (snd_una 59, snd_nxt 59, snd_wnd 0, snd_wl1 0, snd_wl2 0, rcv_nxt 974, rcv_wnd 44477 recv-q 1 send-q 0 rto 220 boff 0) state TCP_ESTABLISHED: Received in-sequence FIN - src/tcp_input.c:419
+TCP 10.0.0.4.40964 > 10.0.0.5.8004: Flags [S0A1P0F0R0], seq 59:59, ack 975, win 44477 rto 220 boff 0 - src/tcp_output.c:117
+TCP x:40964 > 10.0.0.5.8004 (snd_una 59, snd_nxt 59, snd_wnd 0, snd_wl1 0, snd_wl2 0, rcv_nxt 975, rcv_wnd 44477 recv-q 1 send-q 0 rto 220 boff 0) state TCP_ESTABLISHED: state is now TCP_CLOSE_WAIT - src/tcp_input.c:439
+TCP x:40964 > 10.0.0.5.8004 (snd_una 59, snd_nxt 59, snd_wnd 0, snd_wl1 0, snd_wl2 0, rcv_nxt 975, rcv_wnd 44477 recv-q 0 send-q 0 rto 220 boff 0) state TCP_CLOSE_WAIT: Queueing fin - src/tcp_output.c:518
+TCP 10.0.0.4.40964 > 10.0.0.5.8004: Flags [S0A1P0F1R0], seq 59:59, ack 975, win 44477 rto 220 boff 0 - src/tcp_output.c:117
+TCP 10.0.0.5.8004 > 10.0.0.4.40964: Flags [S0A1P0F0R0], seq 975:975, ack 60, win 64182 rto 220 boff 0 - src/tcp.c:78
+TCP x:40964 > 10.0.0.5.8004 (snd_una 59, snd_nxt 60, snd_wnd 0, snd_wl1 0, snd_wl2 0, rcv_nxt 975, rcv_wnd 44477 recv-q 0 send-q 1 rto 220 boff 0) state TCP_CLOSE_WAIT: input state - src/tcp_input.c:269
+TCP 10.0.0.4.40996 > 10.0.0.5.8002: Flags [S1A0P0F0R0], seq 0:0, ack 0, win 44477 rto 0 boff 0 - src/tcp_output.c:117
+TCP 10.0.0.5.8003 > 10.0.0.4.40985: Flags [S0A1P1F0R0], seq 1:157, ack 59, win 64182 rto 200 boff 0 - src/tcp.c:78
+TCP x:40985 > 10.0.0.5.8003 (snd_una 59, snd_nxt 59, snd_wnd 0, snd_wl1 0, snd_wl2 0, rcv_nxt 1, rcv_wnd 44477 recv-q 0 send-q 0 rto 200 boff 0) state TCP_ESTABLISHED: input state - src/tcp_input.c:269
+TCP 10.0.0.4.40985 > 10.0.0.5.8003: Flags [S0A1P0F0R0], seq 59:59, ack 157, win 44477 rto 200 boff 0 - src/tcp_output.c:117
+TCP 10.0.0.5.8003 > 10.0.0.4.40985: Flags [S0A1P1F1R0], seq 157:974, ack 59, win 64182 rto 200 boff 0 - src/tcp.c:78
+TCP x:40985 > 10.0.0.5.8003 (snd_una 59, snd_nxt 59, snd_wnd 0, snd_wl1 0, snd_wl2 0, rcv_nxt 157, rcv_wnd 44477 recv-q 1 send-q 0 rto 200 boff 0) state TCP_ESTABLISHED: input state - src/tcp_input.c:269
+TCP x:40985 > 10.0.0.5.8003 (snd_una 59, snd_nxt 59, snd_wnd 0, snd_wl1 0, snd_wl2 0, rcv_nxt 974, rcv_wnd 44477 recv-q 2 send-q 0 rto 200 boff 0) state TCP_ESTABLISHED: Received in-sequence FIN - src/tcp_input.c:419
+TCP 10.0.0.4.40985 > 10.0.0.5.8003: Flags [S0A1P0F0R0], seq 59:59, ack 975, win 44477 rto 200 boff 0 - src/tcp_output.c:117
+TCP x:40985 > 10.0.0.5.8003 (snd_una 59, snd_nxt 59, snd_wnd 0, snd_wl1 0, snd_wl2 0, rcv_nxt 975, rcv_wnd 44477 recv-q 2 send-q 0 rto 200 boff 0) state TCP_ESTABLISHED: state is now TCP_CLOSE_WAIT - src/tcp_input.c:439
+TCP 10.0.0.5.8003 > 10.0.0.4.40985: Flags [S0A1P1F1R0], seq 157:974, ack 59, win 64182 rto 200 boff 0 - src/tcp.c:78
+TCP x:40985 > 10.0.0.5.8003 (snd_una 59, snd_nxt 59, snd_wnd 0, snd_wl1 0, snd_wl2 0, rcv_nxt 975, rcv_wnd 44477 recv-q 2 send-q 0 rto 200 boff 0) state TCP_CLOSE_WAIT: input state - src/tcp_input.c:269
+TCP x:40985 > 10.0.0.5.8003 (snd_una 59, snd_nxt 59, snd_wnd 0, snd_wl1 0, snd_wl2 0, rcv_nxt 975, rcv_wnd 44477 recv-q 2 send-q 0 rto 200 boff 0) state TCP_CLOSE_WAIT: Received invalid segment - src/tcp_input.c:108
+TCP 10.0.0.4.40985 > 10.0.0.5.8003: Flags [S0A1P0F0R0], seq 59:59, ack 975, win 44477 rto 200 boff 0 - src/tcp_output.c:117
+TCP x:40985 > 10.0.0.5.8003 (snd_una 59, snd_nxt 59, snd_wnd 0, snd_wl1 0, snd_wl2 0, rcv_nxt 975, rcv_wnd 44477 recv-q 2 send-q 0 rto 200 boff 0) state TCP_CLOSE_WAIT: dropping packet - src/tcp_input.c:290
+TCP x:40985 > 10.0.0.5.8003 (snd_una 59, snd_nxt 59, snd_wnd 0, snd_wl1 0, snd_wl2 0, rcv_nxt 975, rcv_wnd 44477 recv-q 0 send-q 0 rto 200 boff 0) state TCP_CLOSE_WAIT: Queueing fin - src/tcp_output.c:518
+TCP 10.0.0.4.40985 > 10.0.0.5.8003: Flags [S0A1P0F1R0], seq 59:59, ack 975, win 44477 rto 200 boff 0 - src/tcp_output.c:117
+TCP 10.0.0.5.8003 > 10.0.0.4.40985: Flags [S0A1P0F0R0], seq 975:975, ack 60, win 64182 rto 200 boff 0 - src/tcp.c:78
+TCP x:40985 > 10.0.0.5.8003 (snd_una 59, snd_nxt 60, snd_wnd 0, snd_wl1 0, snd_wl2 0, rcv_nxt 975, rcv_wnd 44477 recv-q 0 send-q 1 rto 200 boff 0) state TCP_CLOSE_WAIT: input state - src/tcp_input.c:269
+TCP 10.0.0.5.8003 > 10.0.0.4.40985: Flags [S0A1P0F0R0], seq 975:975, ack 60, win 64182 rto 200 boff 0 - src/tcp.c:78
+TCP x:40985 > 10.0.0.5.8003 (snd_una 60, snd_nxt 60, snd_wnd 0, snd_wl1 0, snd_wl2 0, rcv_nxt 975, rcv_wnd 44477 recv-q 0 send-q 0 rto 200 boff 0) state TCP_CLOSE_WAIT: input state - src/tcp_input.c:269
+TCP 10.0.0.4.41017 > 10.0.0.5.8004: Flags [S1A0P0F0R0], seq 0:0, ack 0, win 44477 rto 0 boff 0 - src/tcp_output.c:117
+TCP 10.0.0.5.8004 > 10.0.0.4.41017: Flags [S1A1P0F0R0], seq 4208534971:4208534971, ack 1, win 64240 rto 0 boff 0 - src/tcp.c:78
+TCP x:41017 > 10.0.0.5.8004 (snd_una 0, snd_nxt 1, snd_wnd 0, snd_wl1 0, snd_wl2 0, rcv_nxt 0, rcv_wnd 44477 recv-q 0 send-q 1 rto 0 boff 0) state TCP_SYNSENT: input state - src/tcp_input.c:269
+TCP x:41017 > 10.0.0.5.8004 (snd_una 0, snd_nxt 1, snd_wnd 0, snd_wl1 0, snd_wl2 0, rcv_nxt 0, rcv_wnd 44477 recv-q 0 send-q 1 rto 0 boff 0) state TCP_SYNSENT: state is synsent - src/tcp_input.c:153
+TCP x:41017 > 10.0.0.5.8004 (snd_una 1, snd_nxt 1, snd_wnd 0, snd_wl1 0, snd_wl2 0, rcv_nxt 1, rcv_wnd 44477 recv-q 0 send-q 0 rto 0 boff 0) state TCP_SYNSENT: state is now TCP_ESTABLISHED - src/tcp_input.c:192
+TCP 10.0.0.4.41017 > 10.0.0.5.8004: Flags [S0A1P0F0R0], seq 1:1, ack 1, win 44477 rto 1000 boff 0 - src/tcp_output.c:117
+TCP x:41017 > 10.0.0.5.8004 (snd_una 1, snd_nxt 1, snd_wnd 0, snd_wl1 0, snd_wl2 0, rcv_nxt 1, rcv_wnd 44477 recv-q 0 send-q 0 rto 1000 boff 0) state TCP_ESTABLISHED: dropping packet - src/tcp_input.c:208
+TCP 10.0.0.4.41017 > 10.0.0.5.8004: Flags [S0A1P1F0R0], seq 1:59, ack 1, win 44477 rto 1000 boff 0 - src/tcp_output.c:117
+TCP 10.0.0.4.41028 > 10.0.0.5.8003: Flags [S1A0P0F0R0], seq 0:0, ack 0, win 44477 rto 0 boff 0 - src/tcp_output.c:117
+TCP 10.0.0.5.8003 > 10.0.0.4.41028: Flags [S1A1P0F0R0], seq 3835834133:3835834133, ack 1, win 64240 rto 0 boff 0 - src/tcp.c:78
+TCP x:41028 > 10.0.0.5.8003 (snd_una 0, snd_nxt 1, snd_wnd 0, snd_wl1 0, snd_wl2 0, rcv_nxt 0, rcv_wnd 44477 recv-q 0 send-q 1 rto 0 boff 0) state TCP_SYNSENT: input state - src/tcp_input.c:269
+TCP x:41028 > 10.0.0.5.8003 (snd_una 0, snd_nxt 1, snd_wnd 0, snd_wl1 0, snd_wl2 0, rcv_nxt 0, rcv_wnd 44477 recv-q 0 send-q 1 rto 0 boff 0) state TCP_SYNSENT: state is synsent - src/tcp_input.c:153
+TCP x:41028 > 10.0.0.5.8003 (snd_una 1, snd_nxt 1, snd_wnd 0, snd_wl1 0, snd_wl2 0, rcv_nxt 1, rcv_wnd 44477 recv-q 0 send-q 0 rto 0 boff 0) state TCP_SYNSENT: state is now TCP_ESTABLISHED - src/tcp_input.c:192
+TCP 10.0.0.4.41028 > 10.0.0.5.8003: Flags [S0A1P0F0R0], seq 1:1, ack 1, win 44477 rto 1000 boff 0 - src/tcp_output.c:117
+TCP x:41028 > 10.0.0.5.8003 (snd_una 1, snd_nxt 1, snd_wnd 0, snd_wl1 0, snd_wl2 0, rcv_nxt 1, rcv_wnd 44477 recv-q 0 send-q 0 rto 1000 boff 0) state TCP_ESTABLISHED: dropping packet - src/tcp_input.c:208
+TCP 10.0.0.5.8003 > 10.0.0.4.41028: Flags [S1A1P0F0R0], seq 0:0, ack 1, win 64240 rto 1000 boff 0 - src/tcp.c:78
+TCP x:41028 > 10.0.0.5.8003 (snd_una 1, snd_nxt 1, snd_wnd 0, snd_wl1 0, snd_wl2 0, rcv_nxt 1, rcv_wnd 44477 recv-q 0 send-q 0 rto 1000 boff 0) state TCP_ESTABLISHED: input state - src/tcp_input.c:269
+TCP x:41028 > 10.0.0.5.8003 (snd_una 1, snd_nxt 1, snd_wnd 0, snd_wl1 0, snd_wl2 0, rcv_nxt 1, rcv_wnd 44477 recv-q 0 send-q 0 rto 1000 boff 0) state TCP_ESTABLISHED: Received invalid segment - src/tcp_input.c:108
+TCP 10.0.0.4.41028 > 10.0.0.5.8003: Flags [S0A1P0F0R0], seq 1:1, ack 1, win 44477 rto 1000 boff 0 - src/tcp_output.c:117
+TCP x:41028 > 10.0.0.5.8003 (snd_una 1, snd_nxt 1, snd_wnd 0, snd_wl1 0, snd_wl2 0, rcv_nxt 1, rcv_wnd 44477 recv-q 0 send-q 0 rto 1000 boff 0) state TCP_ESTABLISHED: dropping packet - src/tcp_input.c:290
+TCP 10.0.0.4.41028 > 10.0.0.5.8003: Flags [S0A1P1F0R0], seq 1:59, ack 1, win 44477 rto 1000 boff 0 - src/tcp_output.c:117
+TCP 10.0.0.5.8003 > 10.0.0.4.41028: Flags [S0A1P0F0R0], seq 1:1, ack 59, win 64182 rto 1000 boff 0 - src/tcp.c:78
+TCP x:41028 > 10.0.0.5.8003 (snd_una 1, snd_nxt 59, snd_wnd 0, snd_wl1 0, snd_wl2 0, rcv_nxt 1, rcv_wnd 44477 recv-q 0 send-q 1 rto 1000 boff 0) state TCP_ESTABLISHED: input state - src/tcp_input.c:269
+TCP 10.0.0.5.8003 > 10.0.0.4.41028: Flags [S0A1P0F0R0], seq 1:1, ack 59, win 64182 rto 200 boff 0 - src/tcp.c:78
+TCP x:41028 > 10.0.0.5.8003 (snd_una 59, snd_nxt 59, snd_wnd 0, snd_wl1 0, snd_wl2 0, rcv_nxt 1, rcv_wnd 44477 recv-q 0 send-q 0 rto 200 boff 0) state TCP_ESTABLISHED: input state - src/tcp_input.c:269
+TCP 10.0.0.5.8004 > 10.0.0.4.41017: Flags [S0A1P1F0R0], seq 1:157, ack 59, win 64182 rto 1000 boff 0 - src/tcp.c:78
+TCP x:41017 > 10.0.0.5.8004 (snd_una 1, snd_nxt 59, snd_wnd 0, snd_wl1 0, snd_wl2 0, rcv_nxt 1, rcv_wnd 44477 recv-q 0 send-q 1 rto 1000 boff 0) state TCP_ESTABLISHED: input state - src/tcp_input.c:269
+TCP 10.0.0.4.41017 > 10.0.0.5.8004: Flags [S0A1P0F0R0], seq 59:59, ack 157, win 44477 rto 220 boff 0 - src/tcp_output.c:117
+TCP 10.0.0.5.8004 > 10.0.0.4.41017: Flags [S0A1P0F1R0], seq 974:974, ack 59, win 64182 rto 220 boff 0 - src/tcp.c:78
+TCP x:41017 > 10.0.0.5.8004 (snd_una 59, snd_nxt 59, snd_wnd 0, snd_wl1 0, snd_wl2 0, rcv_nxt 157, rcv_wnd 44477 recv-q 1 send-q 0 rto 220 boff 0) state TCP_ESTABLISHED: input state - src/tcp_input.c:269
+TCP 10.0.0.5.8004 > 10.0.0.4.41017: Flags [S0A1P0F1R0], seq 974:974, ack 59, win 64182 rto 220 boff 0 - src/tcp.c:78
+TCP x:41017 > 10.0.0.5.8004 (snd_una 59, snd_nxt 59, snd_wnd 0, snd_wl1 0, snd_wl2 0, rcv_nxt 157, rcv_wnd 44477 recv-q 0 send-q 0 rto 220 boff 0) state TCP_ESTABLISHED: input state - src/tcp_input.c:269
+TCP 10.0.0.5.8003 > 10.0.0.4.41028: Flags [S0A1P1F0R0], seq 1:157, ack 59, win 64182 rto 200 boff 0 - src/tcp.c:78
+TCP x:41028 > 10.0.0.5.8003 (snd_una 59, snd_nxt 59, snd_wnd 0, snd_wl1 0, snd_wl2 0, rcv_nxt 1, rcv_wnd 44477 recv-q 0 send-q 0 rto 200 boff 0) state TCP_ESTABLISHED: input state - src/tcp_input.c:269
+TCP 10.0.0.4.41028 > 10.0.0.5.8003: Flags [S0A1P0F0R0], seq 59:59, ack 157, win 44477 rto 200 boff 0 - src/tcp_output.c:117
+TCP 10.0.0.5.8003 > 10.0.0.4.41028: Flags [S0A1P1F0R0], seq 1:157, ack 59, win 64182 rto 200 boff 0 - src/tcp.c:78
+TCP x:41028 > 10.0.0.5.8003 (snd_una 59, snd_nxt 59, snd_wnd 0, snd_wl1 0, snd_wl2 0, rcv_nxt 157, rcv_wnd 44477 recv-q 1 send-q 0 rto 200 boff 0) state TCP_ESTABLISHED: input state - src/tcp_input.c:269
+TCP x:41028 > 10.0.0.5.8003 (snd_una 59, snd_nxt 59, snd_wnd 0, snd_wl1 0, snd_wl2 0, rcv_nxt 157, rcv_wnd 44477 recv-q 1 send-q 0 rto 200 boff 0) state TCP_ESTABLISHED: Received invalid segment - src/tcp_input.c:108
+TCP 10.0.0.4.41028 > 10.0.0.5.8003: Flags [S0A1P0F0R0], seq 59:59, ack 157, win 44477 rto 200 boff 0 - src/tcp_output.c:117
+TCP x:41028 > 10.0.0.5.8003 (snd_una 59, snd_nxt 59, snd_wnd 0, snd_wl1 0, snd_wl2 0, rcv_nxt 157, rcv_wnd 44477 recv-q 1 send-q 0 rto 200 boff 0) state TCP_ESTABLISHED: dropping packet - src/tcp_input.c:290
+TCP 10.0.0.5.8003 > 10.0.0.4.41028: Flags [S0A1P1F0R0], seq 157:974, ack 59, win 64182 rto 200 boff 0 - src/tcp.c:78
+TCP x:41028 > 10.0.0.5.8003 (snd_una 59, snd_nxt 59, snd_wnd 0, snd_wl1 0, snd_wl2 0, rcv_nxt 157, rcv_wnd 44477 recv-q 1 send-q 0 rto 200 boff 0) state TCP_ESTABLISHED: input state - src/tcp_input.c:269
+TCP 10.0.0.4.41028 > 10.0.0.5.8003: Flags [S0A1P0F0R0], seq 59:59, ack 974, win 44477 rto 200 boff 0 - src/tcp_output.c:117
+TCP 10.0.0.5.8003 > 10.0.0.4.41028: Flags [S0A1P1F0R0], seq 157:974, ack 59, win 64182 rto 200 boff 0 - src/tcp.c:78
+TCP x:41028 > 10.0.0.5.8003 (snd_una 59, snd_nxt 59, snd_wnd 0, snd_wl1 0, snd_wl2 0, rcv_nxt 974, rcv_wnd 44477 recv-q 2 send-q 0 rto 200 boff 0) state TCP_ESTABLISHED: input state - src/tcp_input.c:269
+TCP x:41028 > 10.0.0.5.8003 (snd_una 59, snd_nxt 59, snd_wnd 0, snd_wl1 0, snd_wl2 0, rcv_nxt 974, rcv_wnd 44477 recv-q 2 send-q 0 rto 200 boff 0) state TCP_ESTABLISHED: Received invalid segment - src/tcp_input.c:108
+TCP 10.0.0.4.41028 > 10.0.0.5.8003: Flags [S0A1P0F0R0], seq 59:59, ack 974, win 44477 rto 200 boff 0 - src/tcp_output.c:117
+TCP x:41028 > 10.0.0.5.8003 (snd_una 59, snd_nxt 59, snd_wnd 0, snd_wl1 0, snd_wl2 0, rcv_nxt 974, rcv_wnd 44477 recv-q 2 send-q 0 rto 200 boff 0) state TCP_ESTABLISHED: dropping packet - src/tcp_input.c:290
+TCP 10.0.0.5.8003 > 10.0.0.4.41028: Flags [S0A1P0F1R0], seq 974:974, ack 59, win 64182 rto 200 boff 0 - src/tcp.c:78
+TCP x:41028 > 10.0.0.5.8003 (snd_una 59, snd_nxt 59, snd_wnd 0, snd_wl1 0, snd_wl2 0, rcv_nxt 974, rcv_wnd 44477 recv-q 2 send-q 0 rto 200 boff 0) state TCP_ESTABLISHED: input state - src/tcp_input.c:269
+TCP x:41028 > 10.0.0.5.8003 (snd_una 59, snd_nxt 59, snd_wnd 0, snd_wl1 0, snd_wl2 0, rcv_nxt 974, rcv_wnd 44477 recv-q 2 send-q 0 rto 200 boff 0) state TCP_ESTABLISHED: Received in-sequence FIN - src/tcp_input.c:419
+TCP 10.0.0.4.41028 > 10.0.0.5.8003: Flags [S0A1P0F0R0], seq 59:59, ack 975, win 44477 rto 200 boff 0 - src/tcp_output.c:117
+TCP x:41028 > 10.0.0.5.8003 (snd_una 59, snd_nxt 59, snd_wnd 0, snd_wl1 0, snd_wl2 0, rcv_nxt 975, rcv_wnd 44477 recv-q 2 send-q 0 rto 200 boff 0) state TCP_ESTABLISHED: state is now TCP_CLOSE_WAIT - src/tcp_input.c:439
+TCP x:41028 > 10.0.0.5.8003 (snd_una 59, snd_nxt 59, snd_wnd 0, snd_wl1 0, snd_wl2 0, rcv_nxt 975, rcv_wnd 44477 recv-q 0 send-q 0 rto 200 boff 0) state TCP_CLOSE_WAIT: Queueing fin - src/tcp_output.c:518
+TCP 10.0.0.4.41028 > 10.0.0.5.8003: Flags [S0A1P0F1R0], seq 59:59, ack 975, win 44477 rto 200 boff 0 - src/tcp_output.c:117
+TCP 10.0.0.5.8003 > 10.0.0.4.41028: Flags [S0A1P0F0R0], seq 975:975, ack 60, win 64182 rto 200 boff 0 - src/tcp.c:78
+TCP x:41028 > 10.0.0.5.8003 (snd_una 59, snd_nxt 60, snd_wnd 0, snd_wl1 0, snd_wl2 0, rcv_nxt 975, rcv_wnd 44477 recv-q 0 send-q 1 rto 200 boff 0) state TCP_CLOSE_WAIT: input state - src/tcp_input.c:269
+TCP 10.0.0.5.8003 > 10.0.0.4.41028: Flags [S0A1P0F0R0], seq 975:975, ack 60, win 64182 rto 200 boff 0 - src/tcp.c:78
+TCP x:41028 > 10.0.0.5.8003 (snd_una 60, snd_nxt 60, snd_wnd 0, snd_wl1 0, snd_wl2 0, rcv_nxt 975, rcv_wnd 44477 recv-q 0 send-q 0 rto 200 boff 0) state TCP_CLOSE_WAIT: input state - src/tcp_input.c:269
+TCP 10.0.0.4.41069 > 10.0.0.5.9999: Flags [S1A0P0F0R0], seq 0:0, ack 0, win 44477 rto 0 boff 0 - src/tcp_output.c:117
+TCP 10.0.0.5.9999 > 10.0.0.4.41069: Flags [S0A1P0F0R1], seq 0:0, ack 1, win 0 rto 0 boff 0 - src/tcp.c:78
+TCP x:41069 > 10.0.0.5.9999 (snd_una 0, snd_nxt 1, snd_wnd 0, snd_wl1 0, snd_wl2 0, rcv_nxt 0, rcv_wnd 44477 recv-q 0 send-q 1 rto 0 boff 0) state TCP_SYNSENT: input state - src/tcp_input.c:269
+TCP x:41069 > 10.0.0.5.9999 (snd_una 0, snd_nxt 1, snd_wnd 0, snd_wl1 0, snd_wl2 0, rcv_nxt 0, rcv_wnd 44477 recv-q 0 send-q 1 rto 0 boff 0) state TCP_SYNSENT: state is synsent - src/tcp_input.c:153
+TCP x:41069 > 10.0.0.5.9999 (snd_una 0, snd_nxt 1, snd_wnd 0, snd_wl1 0, snd_wl2 0, rcv_nxt 0, rcv_wnd 44477 recv-q 0 send-q 1 rto 0 boff 0) state TCP_SYNSENT: state is now TCP_CLOSING - src/tcp.c:312
+TCP x:41069 > 10.0.0.5.9999 (snd_una 0, snd_nxt 1, snd_wnd 0, snd_wl1 0, snd_wl2 0, rcv_nxt 0, rcv_wnd 44477 recv-q 0 send-q 1 rto 0 boff 0) state TCP_CLOSING: dropping packet - src/tcp_input.c:208
+TCP 10.0.0.5.8004 > 10.0.0.4.41017: Flags [S0A1P1F1R0], seq 157:974, ack 59, win 64182 rto 220 boff 0 - src/tcp.c:78
+TCP x:41017 > 10.0.0.5.8004 (snd_una 59, snd_nxt 59, snd_wnd 0, snd_wl1 0, snd_wl2 0, rcv_nxt 157, rcv_wnd 44477 recv-q 0 send-q 0 rto 220 boff 0) state TCP_ESTABLISHED: input state - src/tcp_input.c:269
+TCP x:41017 > 10.0.0.5.8004 (snd_una 59, snd_nxt 59, snd_wnd 0, snd_wl1 0, snd_wl2 0, rcv_nxt 974, rcv_wnd 44477 recv-q 1 send-q 0 rto 220 boff 0) state TCP_ESTABLISHED: Received in-sequence FIN - src/tcp_input.c:419
+TCP 10.0.0.4.41017 > 10.0.0.5.8004: Flags [S0A1P0F0R0], seq 59:59, ack 975, win 44477 rto 220 boff 0 - src/tcp_output.c:117
+TCP x:41017 > 10.0.0.5.8004 (snd_una 59, snd_nxt 59, snd_wnd 0, snd_wl1 0, snd_wl2 0, rcv_nxt 975, rcv_wnd 44477 recv-q 1 send-q 0 rto 220 boff 0) state TCP_ESTABLISHED: state is now TCP_CLOSE_WAIT - src/tcp_input.c:439
+TCP x:41017 > 10.0.0.5.8004 (snd_una 59, snd_nxt 59, snd_wnd 0, snd_wl1 0, snd_wl2 0, rcv_nxt 975, rcv_wnd 44477 recv-q 0 send-q 0 rto 220 boff 0) state TCP_CLOSE_WAIT: Queueing fin - src/tcp_output.c:518
+TCP 10.0.0.4.41017 > 10.0.0.5.8004: Flags [S0A1P0F1R0], seq 59:59, ack 975, win 44477 rto 220 boff 0 - src/tcp_output.c:117
+TCP 10.0.0.4.41270 > 10.0.0.5.9999: Flags [S1A0P0F0R0], seq 0:0, ack 0, win 44477 rto 0 boff 0 - src/tcp_output.c:117
+TCP 10.0.0.5.9999 > 10.0.0.4.41270: Flags [S0A1P0F0R1], seq 0:0, ack 1, win 0 rto 0 boff 0 - src/tcp.c:78
+TCP x:41270 > 10.0.0.5.9999 (snd_una 0, snd_nxt 1, snd_wnd 0, snd_wl1 0, snd_wl2 0, rcv_nxt 0, rcv_wnd 44477 recv-q 0 send-q 1 rto 0 boff 0) state TCP_SYNSENT: input state - src/tcp_input.c:269
+TCP x:41270 > 10.0.0.5.9999 (snd_una 0, snd_nxt 1, snd_wnd 0, snd_wl1 0, snd_wl2 0, rcv_nxt 0, rcv_wnd 44477 recv-q 0 send-q 1 rto 0 boff 0) state TCP_SYNSENT: state is synsent - src/tcp_input.c:153
+TCP x:41270 > 10.0.0.5.9999 (snd_una 0, snd_nxt 1, snd_wnd 0, snd_wl1 0, snd_wl2 0, rcv_nxt 0, rcv_wnd 44477 recv-q 0 send-q 1 rto 0 boff 0) state TCP_SYNSENT: state is now TCP_CLOSING - src/tcp.c:312
+TCP x:41270 > 10.0.0.5.9999 (snd_una 0, snd_nxt 1, snd_wnd 0, snd_wl1 0, snd_wl2 0, rcv_nxt 0, rcv_wnd 44477 recv-q 0 send-q 1 rto 0 boff 0) state TCP_CLOSING: dropping packet - src/tcp_input.c:208
+TCP 10.0.0.4.41017 > 10.0.0.5.8004: Flags [S0A1P0F1R0], seq 59:59, ack 975, win 44477 rto 220 boff 0 - src/tcp_output.c:117
+TCP x:41017 > 10.0.0.5.8004 (snd_una 59, snd_nxt 60, snd_wnd 0, snd_wl1 0, snd_wl2 0, rcv_nxt 975, rcv_wnd 44477 recv-q 0 send-q 1 rto 440 boff 1) state TCP_CLOSE_WAIT: state is now TCP_LAST_ACK - src/tcp.c:362
+TCP 10.0.0.5.8004 > 10.0.0.4.41017: Flags [S0A1P0F0R0], seq 975:975, ack 60, win 64182 rto 440 boff 1 - src/tcp.c:78
+TCP x:41017 > 10.0.0.5.8004 (snd_una 59, snd_nxt 60, snd_wnd 0, snd_wl1 0, snd_wl2 0, rcv_nxt 975, rcv_wnd 44477 recv-q 0 send-q 1 rto 440 boff 1) state TCP_LAST_ACK: input state - src/tcp_input.c:269
+TCP x:41017 > 10.0.0.5.8004 (snd_una 60, snd_nxt 60, snd_wnd 0, snd_wl1 0, snd_wl2 0, rcv_nxt 975, rcv_wnd 44477 recv-q 0 send-q 0 rto 440 boff 0) state TCP_LAST_ACK: state is now TCP_CLOSING - src/tcp.c:312
+TCP 10.0.0.4.40996 > 10.0.0.5.8002: Flags [S1A0P0F0R0], seq 0:0, ack 0, win 44477 rto 0 boff 0 - src/tcp_output.c:117
+TCP 10.0.0.4.40996 > 10.0.0.5.8002: Flags [S1A0P0F0R0], seq 0:0, ack 0, win 44477 rto 0 boff 1 - src/tcp_output.c:117
+TCP 10.0.0.5.8002 > 10.0.0.4.40996: Flags [S1A1P0F0R0], seq 3201279085:3201279085, ack 1, win 64240 rto 0 boff 2 - src/tcp.c:78
+TCP x:40996 > 10.0.0.5.8002 (snd_una 0, snd_nxt 1, snd_wnd 0, snd_wl1 0, snd_wl2 0, rcv_nxt 0, rcv_wnd 44477 recv-q 0 send-q 1 rto 0 boff 2) state TCP_SYNSENT: input state - src/tcp_input.c:269
+TCP x:40996 > 10.0.0.5.8002 (snd_una 0, snd_nxt 1, snd_wnd 0, snd_wl1 0, snd_wl2 0, rcv_nxt 0, rcv_wnd 44477 recv-q 0 send-q 1 rto 0 boff 2) state TCP_SYNSENT: state is synsent - src/tcp_input.c:153
+TCP x:40996 > 10.0.0.5.8002 (snd_una 1, snd_nxt 1, snd_wnd 0, snd_wl1 0, snd_wl2 0, rcv_nxt 1, rcv_wnd 44477 recv-q 0 send-q 0 rto 0 boff 0) state TCP_SYNSENT: state is now TCP_ESTABLISHED - src/tcp_input.c:192
+TCP 10.0.0.4.40996 > 10.0.0.5.8002: Flags [S0A1P0F0R0], seq 1:1, ack 1, win 44477 rto 1000 boff 0 - src/tcp_output.c:117
+TCP x:40996 > 10.0.0.5.8002 (snd_una 1, snd_nxt 1, snd_wnd 0, snd_wl1 0, snd_wl2 0, rcv_nxt 1, rcv_wnd 44477 recv-q 0 send-q 0 rto 1000 boff 0) state TCP_ESTABLISHED: dropping packet - src/tcp_input.c:208
+TCP 10.0.0.4.40996 > 10.0.0.5.8002: Flags [S0A1P1F0R0], seq 1:59, ack 1, win 44477 rto 1000 boff 0 - src/tcp_output.c:117
+TCP 10.0.0.5.8002 > 10.0.0.4.40996: Flags [S1A1P0F0R0], seq 0:0, ack 1, win 64240 rto 1000 boff 0 - src/tcp.c:78
+TCP x:40996 > 10.0.0.5.8002 (snd_una 1, snd_nxt 59, snd_wnd 0, snd_wl1 0, snd_wl2 0, rcv_nxt 1, rcv_wnd 44477 recv-q 0 send-q 1 rto 1000 boff 0) state TCP_ESTABLISHED: input state - src/tcp_input.c:269
+TCP x:40996 > 10.0.0.5.8002 (snd_una 1, snd_nxt 59, snd_wnd 0, snd_wl1 0, snd_wl2 0, rcv_nxt 1, rcv_wnd 44477 recv-q 0 send-q 1 rto 1000 boff 0) state TCP_ESTABLISHED: Received invalid segment - src/tcp_input.c:108
+TCP 10.0.0.4.40996 > 10.0.0.5.8002: Flags [S0A1P0F0R0], seq 59:59, ack 1, win 44477 rto 1000 boff 0 - src/tcp_output.c:117
+TCP x:40996 > 10.0.0.5.8002 (snd_una 1, snd_nxt 59, snd_wnd 0, snd_wl1 0, snd_wl2 0, rcv_nxt 1, rcv_wnd 44477 recv-q 0 send-q 1 rto 1000 boff 0) state TCP_ESTABLISHED: dropping packet - src/tcp_input.c:290
+TCP 10.0.0.4.40996 > 10.0.0.5.8002: Flags [S0A1P1F0R0], seq 1:59, ack 1, win 44477 rto 1000 boff 0 - src/tcp_output.c:117
+TCP 10.0.0.5.8002 > 10.0.0.4.40996: Flags [S1A1P0F0R0], seq 0:0, ack 1, win 64240 rto 2000 boff 1 - src/tcp.c:78
+TCP x:40996 > 10.0.0.5.8002 (snd_una 1, snd_nxt 59, snd_wnd 0, snd_wl1 0, snd_wl2 0, rcv_nxt 1, rcv_wnd 44477 recv-q 0 send-q 1 rto 2000 boff 1) state TCP_ESTABLISHED: input state - src/tcp_input.c:269
+TCP x:40996 > 10.0.0.5.8002 (snd_una 1, snd_nxt 59, snd_wnd 0, snd_wl1 0, snd_wl2 0, rcv_nxt 1, rcv_wnd 44477 recv-q 0 send-q 1 rto 2000 boff 1) state TCP_ESTABLISHED: Received invalid segment - src/tcp_input.c:108
+TCP 10.0.0.4.40996 > 10.0.0.5.8002: Flags [S0A1P0F0R0], seq 59:59, ack 1, win 44477 rto 2000 boff 1 - src/tcp_output.c:117
+TCP x:40996 > 10.0.0.5.8002 (snd_una 1, snd_nxt 59, snd_wnd 0, snd_wl1 0, snd_wl2 0, rcv_nxt 1, rcv_wnd 44477 recv-q 0 send-q 1 rto 2000 boff 1) state TCP_ESTABLISHED: dropping packet - src/tcp_input.c:290
+TCP 10.0.0.5.8002 > 10.0.0.4.40996: Flags [S1A1P0F0R0], seq 0:0, ack 1, win 64240 rto 2000 boff 1 - src/tcp.c:78
+TCP x:40996 > 10.0.0.5.8002 (snd_una 1, snd_nxt 59, snd_wnd 0, snd_wl1 0, snd_wl2 0, rcv_nxt 1, rcv_wnd 44477 recv-q 0 send-q 1 rto 2000 boff 1) state TCP_ESTABLISHED: input state - src/tcp_input.c:269
+TCP x:40996 > 10.0.0.5.8002 (snd_una 1, snd_nxt 59, snd_wnd 0, snd_wl1 0, snd_wl2 0, rcv_nxt 1, rcv_wnd 44477 recv-q 0 send-q 1 rto 2000 boff 1) state TCP_ESTABLISHED: Received invalid segment - src/tcp_input.c:108
+TCP 10.0.0.4.40996 > 10.0.0.5.8002: Flags [S0A1P0F0R0], seq 59:59, ack 1, win 44477 rto 2000 boff 1 - src/tcp_output.c:117
+TCP x:40996 > 10.0.0.5.8002 (snd_una 1, snd_nxt 59, snd_wnd 0, snd_wl1 0, snd_wl2 0, rcv_nxt 1, rcv_wnd 44477 recv-q 0 send-q 1 rto 2000 boff 1) state TCP_ESTABLISHED: dropping packet - src/tcp_input.c:290
+TCP 10.0.0.5.8002 > 10.0.0.4.40996: Flags [S0A1P0F0R0], seq 1:1, ack 59, win 64182 rto 2000 boff 1 - src/tcp.c:78
+TCP x:40996 > 10.0.0.5.8002 (snd_una 1, snd_nxt 59, snd_wnd 0, snd_wl1 0, snd_wl2 0, rcv_nxt 1, rcv_wnd 44477 recv-q 0 send-q 1 rto 2000 boff 1) state TCP_ESTABLISHED: input state - src/tcp_input.c:269
+TCP 10.0.0.5.8002 > 10.0.0.4.40996: Flags [S0A1P1F0R0], seq 1:157, ack 59, win 64182 rto 2000 boff 0 - src/tcp.c:78
+TCP x:40996 > 10.0.0.5.8002 (snd_una 59, snd_nxt 59, snd_wnd 0, snd_wl1 0, snd_wl2 0, rcv_nxt 1, rcv_wnd 44477 recv-q 0 send-q 0 rto 2000 boff 0) state TCP_ESTABLISHED: input state - src/tcp_input.c:269
+TCP 10.0.0.4.40996 > 10.0.0.5.8002: Flags [S0A1P0F0R0], seq 59:59, ack 157, win 44477 rto 2000 boff 0 - src/tcp_output.c:117
+TCP 10.0.0.5.8002 > 10.0.0.4.40996: Flags [S0A1P1F1R0], seq 157:974, ack 59, win 64182 rto 2000 boff 0 - src/tcp.c:78
+TCP x:40996 > 10.0.0.5.8002 (snd_una 59, snd_nxt 59, snd_wnd 0, snd_wl1 0, snd_wl2 0, rcv_nxt 157, rcv_wnd 44477 recv-q 0 send-q 0 rto 2000 boff 0) state TCP_ESTABLISHED: input state - src/tcp_input.c:269
+TCP x:40996 > 10.0.0.5.8002 (snd_una 59, snd_nxt 59, snd_wnd 0, snd_wl1 0, snd_wl2 0, rcv_nxt 974, rcv_wnd 44477 recv-q 1 send-q 0 rto 2000 boff 0) state TCP_ESTABLISHED: Received in-sequence FIN - src/tcp_input.c:419
+TCP 10.0.0.4.40996 > 10.0.0.5.8002: Flags [S0A1P0F0R0], seq 59:59, ack 975, win 44477 rto 2000 boff 0 - src/tcp_output.c:117
+TCP x:40996 > 10.0.0.5.8002 (snd_una 59, snd_nxt 59, snd_wnd 0, snd_wl1 0, snd_wl2 0, rcv_nxt 975, rcv_wnd 44477 recv-q 1 send-q 0 rto 2000 boff 0) state TCP_ESTABLISHED: state is now TCP_CLOSE_WAIT - src/tcp_input.c:439
+TCP x:40996 > 10.0.0.5.8002 (snd_una 59, snd_nxt 59, snd_wnd 0, snd_wl1 0, snd_wl2 0, rcv_nxt 975, rcv_wnd 44477 recv-q 0 send-q 0 rto 2000 boff 0) state TCP_CLOSE_WAIT: Queueing fin - src/tcp_output.c:518
+TCP 10.0.0.4.40996 > 10.0.0.5.8002: Flags [S0A1P0F1R0], seq 59:59, ack 975, win 44477 rto 2000 boff 0 - src/tcp_output.c:117
+TCP 10.0.0.4.45001 > 10.0.0.5.8002: Flags [S1A0P0F0R0], seq 0:0, ack 0, win 44477 rto 0 boff 0 - src/tcp_output.c:117
+Socket fd 4097 pid 62244 state 3 sk_state 7 flags 2 poll 967 sport 40851 dport 8001 recv-q 0 send-q 0:  - src/socket.c:195
+Socket fd 4098 pid 62256 state 3 sk_state 7 flags 2048 poll 967 sport 40902 dport 8001 recv-q 0 send-q 0:  - src/socket.c:195
+Socket fd 4100 pid 62274 state 3 sk_state 7 flags 2 poll 967 sport 40964 dport 8004 recv-q 0 send-q 0:  - src/socket.c:195
+Socket fd 4101 pid 62285 state 3 sk_state 7 flags 2 poll 967 sport 40985 dport 8003 recv-q 0 send-q 0:  - src/socket.c:195
+Socket fd 4102 pid 62298 state 3 sk_state 7 flags 2 poll 967 sport 40996 dport 8002 recv-q 0 send-q 1:  - src/socket.c:195
+Socket fd 4103 pid 62307 state 4 sk_state 8 flags 2048 poll 967 sport 41017 dport 8004 recv-q 0 send-q 0:  - src/socket.c:195
+Socket fd 4104 pid 62319 state 3 sk_state 7 flags 2048 poll 967 sport 41028 dport 8003 recv-q 0 send-q 0:  - src/socket.c:195
+Socket fd 4107 pid 62354 state 2 sk_state 1 flags 2048 poll 0 sport 45001 dport 8002 recv-q 0 send-q 1:  - src/socket.c:195
+TCP 10.0.0.4.45001 > 10.0.0.5.8002: Flags [S1A0P0F0R0], seq 0:0, ack 0, win 44477 rto 0 boff 0 - src/tcp_output.c:117
+TCP 10.0.0.5.8002 > 10.0.0.4.40996: Flags [S0A1P0F0R0], seq 975:975, ack 59, win 64182 rto 2000 boff 0 - src/tcp.c:78
+TCP x:40996 > 10.0.0.5.8002 (snd_una 59, snd_nxt 60, snd_wnd 0, snd_wl1 0, snd_wl2 0, rcv_nxt 975, rcv_wnd 44477 recv-q 0 send-q 1 rto 2000 boff 0) state TCP_CLOSE_WAIT: input state - src/tcp_input.c:269
+TCP 10.0.0.4.45001 > 10.0.0.5.8002: Flags [S1A0P0F0R0], seq 0:0, ack 0, win 44477 rto 0 boff 1 - src/tcp_output.c:117
+TCP 10.0.0.5.8002 > 10.0.0.4.40996: Flags [S0A1P0F0R0], seq 975:975, ack 60, win 64182 rto 2000 boff 0 - src/tcp.c:78
+TCP x:40996 > 10.0.0.5.8002 (snd_una 59, snd_nxt 60, snd_wnd 0, snd_wl1 0, snd_wl2 0, rcv_nxt 975, rcv_wnd 44477 recv-q 0 send-q 1 rto 2000 boff 0) state TCP_CLOSE_WAIT: input state - src/tcp_input.c:269
+TCP 10.0.0.5.8002 > 10.0.0.4.45001: Flags [S1A1P0F0R0], seq 3744776650:3744776650, ack 1, win 64240 rto 0 boff 2 - src/tcp.c:78
+TCP x:45001 > 10.0.0.5.8002 (snd_una 0, snd_nxt 1, snd_wnd 0, snd_wl1 0, snd_wl2 0, rcv_nxt 0, rcv_wnd 44477 recv-q 0 send-q 1 rto 0 boff 2) state TCP_SYNSENT: input state - src/tcp_input.c:269
+TCP x:45001 > 10.0.0.5.8002 (snd_una 0, snd_nxt 1, snd_wnd 0, snd_wl1 0, snd_wl2 0, rcv_nxt 0, rcv_wnd 44477 recv-q 0 send-q 1 rto 0 boff 2) state TCP_SYNSENT: state is synsent - src/tcp_input.c:153
+TCP x:45001 > 10.0.0.5.8002 (snd_una 1, snd_nxt 1, snd_wnd 0, snd_wl1 0, snd_wl2 0, rcv_nxt 1, rcv_wnd 44477 recv-q 0 send-q 0 rto 0 boff 0) state TCP_SYNSENT: state is now TCP_ESTABLISHED - src/tcp_input.c:192
+TCP 10.0.0.4.45001 > 10.0.0.5.8002: Flags [S0A1P0F0R0], seq 1:1, ack 1, win 44477 rto 1000 boff 0 - src/tcp_output.c:117
+TCP x:45001 > 10.0.0.5.8002 (snd_una 1, snd_nxt 1, snd_wnd 0, snd_wl1 0, snd_wl2 0, rcv_nxt 1, rcv_wnd 44477 recv-q 0 send-q 0 rto 1000 boff 0) state TCP_ESTABLISHED: dropping packet - src/tcp_input.c:208
+TCP 10.0.0.4.45001 > 10.0.0.5.8002: Flags [S0A1P1F0R0], seq 1:59, ack 1, win 44477 rto 1000 boff 0 - src/tcp_output.c:117
+TCP 10.0.0.5.8002 > 10.0.0.4.45001: Flags [S1A1P0F0R0], seq 0:0, ack 1, win 64240 rto 1000 boff 0 - src/tcp.c:78
+TCP x:45001 > 10.0.0.5.8002 (snd_una 1, snd_nxt 59, snd_wnd 0, snd_wl1 0, snd_wl2 0, rcv_nxt 1, rcv_wnd 44477 recv-q 0 send-q 1 rto 1000 boff 0) state TCP_ESTABLISHED: input state - src/tcp_input.c:269
+TCP x:45001 > 10.0.0.5.8002 (snd_una 1, snd_nxt 59, snd_wnd 0, snd_wl1 0, snd_wl2 0, rcv_nxt 1, rcv_wnd 44477 recv-q 0 send-q 1 rto 1000 boff 0) state TCP_ESTABLISHED: Received invalid segment - src/tcp_input.c:108
+TCP 10.0.0.4.45001 > 10.0.0.5.8002: Flags [S0A1P0F0R0], seq 59:59, ack 1, win 44477 rto 1000 boff 0 - src/tcp_output.c:117
+TCP x:45001 > 10.0.0.5.8002 (snd_una 1, snd_nxt 59, snd_wnd 0, snd_wl1 0, snd_wl2 0, rcv_nxt 1, rcv_wnd 44477 recv-q 0 send-q 1 rto 1000 boff 0) state TCP_ESTABLISHED: dropping packet - src/tcp_input.c:290
+TCP 10.0.0.4.45001 > 10.0.0.5.8002: Flags [S0A1P1F0R0], seq 1:59, ack 1, win 44477 rto 1000 boff 0 - src/tcp_output.c:117
+TCP 10.0.0.5.8002 > 10.0.0.4.45001: Flags [S1A1P0F0R0], seq 0:0, ack 1, win 64240 rto 2000 boff 1 - src/tcp.c:78
+TCP x:45001 > 10.0.0.5.8002 (snd_una 1, snd_nxt 59, snd_wnd 0, snd_wl1 0, snd_wl2 0, rcv_nxt 1, rcv_wnd 44477 recv-q 0 send-q 1 rto 2000 boff 1) state TCP_ESTABLISHED: input state - src/tcp_input.c:269
+TCP x:45001 > 10.0.0.5.8002 (snd_una 1, snd_nxt 59, snd_wnd 0, snd_wl1 0, snd_wl2 0, rcv_nxt 1, rcv_wnd 44477 recv-q 0 send-q 1 rto 2000 boff 1) state TCP_ESTABLISHED: Received invalid segment - src/tcp_input.c:108
+TCP 10.0.0.4.45001 > 10.0.0.5.8002: Flags [S0A1P0F0R0], seq 59:59, ack 1, win 44477 rto 2000 boff 1 - src/tcp_output.c:117
+TCP x:45001 > 10.0.0.5.8002 (snd_una 1, snd_nxt 59, snd_wnd 0, snd_wl1 0, snd_wl2 0, rcv_nxt 1, rcv_wnd 44477 recv-q 0 send-q 1 rto 2000 boff 1) state TCP_ESTABLISHED: dropping packet - src/tcp_input.c:290
+TCP 10.0.0.5.8002 > 10.0.0.4.45001: Flags [S1A1P0F0R0], seq 0:0, ack 1, win 64240 rto 2000 boff 1 - src/tcp.c:78
+TCP x:45001 > 10.0.0.5.8002 (snd_una 1, snd_nxt 59, snd_wnd 0, snd_wl1 0, snd_wl2 0, rcv_nxt 1, rcv_wnd 44477 recv-q 0 send-q 1 rto 2000 boff 1) state TCP_ESTABLISHED: input state - src/tcp_input.c:269
+TCP x:45001 > 10.0.0.5.8002 (snd_una 1, snd_nxt 59, snd_wnd 0, snd_wl1 0, snd_wl2 0, rcv_nxt 1, rcv_wnd 44477 recv-q 0 send-q 1 rto 2000 boff 1) state TCP_ESTABLISHED: Received invalid segment - src/tcp_input.c:108
+TCP 10.0.0.4.45001 > 10.0.0.5.8002: Flags [S0A1P0F0R0], seq 59:59, ack 1, win 44477 rto 2000 boff 1 - src/tcp_output.c:117
+TCP x:45001 > 10.0.0.5.8002 (snd_una 1, snd_nxt 59, snd_wnd 0, snd_wl1 0, snd_wl2 0, rcv_nxt 1, rcv_wnd 44477 recv-q 0 send-q 1 rto 2000 boff 1) state TCP_ESTABLISHED: dropping packet - src/tcp_input.c:290
+TCP 10.0.0.5.8002 > 10.0.0.4.45001: Flags [S0A1P0F0R0], seq 1:1, ack 59, win 64182 rto 2000 boff 1 - src/tcp.c:78
+TCP x:45001 > 10.0.0.5.8002 (snd_una 1, snd_nxt 59, snd_wnd 0, snd_wl1 0, snd_wl2 0, rcv_nxt 1, rcv_wnd 44477 recv-q 0 send-q 1 rto 2000 boff 1) state TCP_ESTABLISHED: input state - src/tcp_input.c:269
+TCP 10.0.0.5.8002 > 10.0.0.4.45001: Flags [S0A1P1F0R0], seq 1:157, ack 59, win 64182 rto 2000 boff 0 - src/tcp.c:78
+TCP x:45001 > 10.0.0.5.8002 (snd_una 59, snd_nxt 59, snd_wnd 0, snd_wl1 0, snd_wl2 0, rcv_nxt 1, rcv_wnd 44477 recv-q 0 send-q 0 rto 2000 boff 0) state TCP_ESTABLISHED: input state - src/tcp_input.c:269
+TCP 10.0.0.4.45001 > 10.0.0.5.8002: Flags [S0A1P0F0R0], seq 59:59, ack 157, win 44477 rto 2000 boff 0 - src/tcp_output.c:117
+TCP 10.0.0.5.8002 > 10.0.0.4.45001: Flags [S0A1P1F1R0], seq 157:974, ack 59, win 64182 rto 2000 boff 0 - src/tcp.c:78
+TCP x:45001 > 10.0.0.5.8002 (snd_una 59, snd_nxt 59, snd_wnd 0, snd_wl1 0, snd_wl2 0, rcv_nxt 157, rcv_wnd 44477 recv-q 1 send-q 0 rto 2000 boff 0) state TCP_ESTABLISHED: input state - src/tcp_input.c:269
+TCP x:45001 > 10.0.0.5.8002 (snd_una 59, snd_nxt 59, snd_wnd 0, snd_wl1 0, snd_wl2 0, rcv_nxt 974, rcv_wnd 44477 recv-q 2 send-q 0 rto 2000 boff 0) state TCP_ESTABLISHED: Received in-sequence FIN - src/tcp_input.c:419
+TCP 10.0.0.4.45001 > 10.0.0.5.8002: Flags [S0A1P0F0R0], seq 59:59, ack 975, win 44477 rto 2000 boff 0 - src/tcp_output.c:117
+TCP x:45001 > 10.0.0.5.8002 (snd_una 59, snd_nxt 59, snd_wnd 0, snd_wl1 0, snd_wl2 0, rcv_nxt 975, rcv_wnd 44477 recv-q 2 send-q 0 rto 2000 boff 0) state TCP_ESTABLISHED: state is now TCP_CLOSE_WAIT - src/tcp_input.c:439
+TCP x:45001 > 10.0.0.5.8002 (snd_una 59, snd_nxt 59, snd_wnd 0, snd_wl1 0, snd_wl2 0, rcv_nxt 975, rcv_wnd 44477 recv-q 0 send-q 0 rto 2000 boff 0) state TCP_CLOSE_WAIT: Queueing fin - src/tcp_output.c:518
+TCP 10.0.0.4.45001 > 10.0.0.5.8002: Flags [S0A1P0F1R0], seq 59:59, ack 975, win 44477 rto 2000 boff 0 - src/tcp_output.c:117
+TCP 10.0.0.4.48992 > 10.0.0.5.9999: Flags [S1A0P0F0R0], seq 0:0, ack 0, win 44477 rto 0 boff 0 - src/tcp_output.c:117
+TCP 10.0.0.5.9999 > 10.0.0.4.48992: Flags [S0A1P

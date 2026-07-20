@@ -6,19 +6,21 @@ source "$(dirname $0)/../../utils/common"
 # Simple end-to-end test for an application's curl
 
 function strip_http_header {
-    sed 's/^Date:.*/Date:/' | sed 's/^Server:.*/Server:/'
+    sed 's/\r$//' | sed 's/^Date:.*/Date:/' | sed 's/^Server:.*/Server:/'
 }
 
 function setup {
-    /usr/bin/env python2.7 -m SimpleHTTPServer 8001 >/dev/null 2>&1 &
+    local oldpwd="$PWD"
+    cd "$(dirname "$0")"
+    /usr/bin/env python3 -m http.server 8001 >/dev/null 2>&1 &
     httpserver="$!"
-
+    cd "$oldpwd"
     sleep 5
 }
 
 function teardown_suite {
-    kill "$httpserver"
+    kill "$httpserver" 2>/dev/null || true
 }
 
-setup
 trap teardown_suite EXIT ERR
+setup

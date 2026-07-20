@@ -117,10 +117,11 @@ static int inet_stream_connect(struct socket *sock, const struct sockaddr *addr,
         while (sock->state == SS_CONNECTING && sk->err == -EINPROGRESS) {
             socket_release(sock);
             wait_sleep(&sock->sleep);
+            pthread_mutex_unlock(&sock->sleep.lock);
             socket_wr_acquire(sock);
+            pthread_mutex_lock(&sock->sleep.lock);
         }
         pthread_mutex_unlock(&sock->sleep.lock);
-        socket_wr_acquire(sock);
         
         switch (sk->err) {
         case -ETIMEDOUT:

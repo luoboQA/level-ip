@@ -1,19 +1,29 @@
 HTTP/1.0 200 OK
 Server:
 Date:
-Content-type: text/html; charset=UTF-8
-Content-Length: 326
+Content-type: text/html; charset=utf-8
+Content-Length: 817
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 3.2 Final//EN"><html>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>Directory listing for /</title>
+</head>
 <body>
-<h2>Directory listing for /</h2>
+<h1>Directory listing for /</h1>
 <hr>
 <ul>
-<li><a href="README.md">README.md</a>
-<li><a href="suites/">suites/</a>
-<li><a href="test-run-all">test-run-all</a>
-<li><a href="utils/">utils/</a>
+<li><a href="curl-fixture.txt">curl-fixture.txt</a></li>
+<li><a href="env-delayed">env-delayed</a></li>
+<li><a href="env-duplication">env-duplication</a></li>
+<li><a href="env-lossy">env-lossy</a></li>
+<li><a href="env-normal">env-normal</a></li>
+<li><a href="suite-curl">suite-curl</a></li>
+<li><a href="suite-packet-delay">suite-packet-delay</a></li>
+<li><a href="suite-packet-duplication">suite-packet-duplication</a></li>
+<li><a href="suite-packet-loss">suite-packet-loss</a></li>
+<li><a href="tests">tests</a></li>
 </ul>
 <hr>
 </body>
