@@ -9,5 +9,6 @@ tests/venv
 tests/suites/udp/udp-client
 apps/curl/curl
 apps/curl-poll/curl-poll
+apps/udp/udp-send
 lvl-ip-test.log
 vgcore*

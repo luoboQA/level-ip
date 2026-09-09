@@ -721,3 +721,20 @@ make debug
   4. 自动重发队列中的所有数据包。
 
   相关实现位于 `src/dst.c` 和 `src/arp.c`。
+
+  ## 单向 UDP 发送工具
+
+  项目还提供一个只发送、不等待回复的 UDP 应用：
+
+  ```bash
+  make apps
+  ./tools/level-ip ./apps/udp/udp-send 10.0.0.5 9000 "hello udp"
+  ```
+
+  程序调用 `sendto()` 后立即退出。配合抓包观察：
+
+  ```bash
+  sudo tcpdump -i tap0 -n -vv udp port 9000
+  ```
+
+  这个工具用于验证 UDP 发送路径；网页内容仍使用 TCP 应用和 curl 获取。

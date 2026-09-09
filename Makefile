@@ -4,6 +4,7 @@ src = $(wildcard src/*.c)
 obj = $(patsubst src/%.c, build/%.o, $(src))
 headers = $(wildcard include/*.h)
 apps = apps/curl/curl
+udp_app = apps/udp/udp-send
 udp_test = tests/suites/udp/udp-client
 
 lvl-ip: $(obj)
@@ -28,10 +29,14 @@ debug: CFLAGS+= -DDEBUG_SOCKET -DDEBUG_TCP -g
 debug: lvl-ip
 	sudo ./lvl-ip 2>&1 | tee debug-$(shell date +%Y%m%d_%H%M%S).log
 
-apps: $(apps)
+apps: $(apps) $(udp_app)
 	$(MAKE) -C tools
 	$(MAKE) -C apps/curl
 	$(MAKE) -C apps/curl-poll
+	$(MAKE) -C apps/udp
+
+$(udp_app): apps/udp/udp-send.c apps/udp/Makefile
+	$(MAKE) -C apps/udp
 
 udp-test:
 	$(MAKE) -C tests/suites/udp
