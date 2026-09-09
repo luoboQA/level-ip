@@ -7,4 +7,7 @@ lvl-ip
 tests/venv
 .history/
 tests/suites/udp/udp-client
+apps/curl/curl
+apps/curl-poll/curl-poll
+lvl-ip-test.log
 vgcore*

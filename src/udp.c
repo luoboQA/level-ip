@@ -8,6 +8,18 @@
 
 static uint16_t udp_next_port = 41000;
 
+#ifdef DEBUG_UDP
+static void udp_dbg(const char *direction, uint32_t saddr, uint16_t sport,
+                    uint32_t daddr, uint16_t dport, uint16_t len)
+{
+    print_debug("UDP %s %u.%u.%u.%u.%u > %u.%u.%u.%u.%u len %u", direction,
+                saddr >> 24, saddr >> 16, saddr >> 8, saddr, sport,
+                daddr >> 24, daddr >> 16, daddr >> 8, daddr, dport, len);
+}
+#else
+#define udp_dbg(direction, saddr, sport, daddr, dport, len)
+#endif
+
 struct net_ops udp_ops = {
     .alloc_sock = &udp_alloc_sock,
     .init = &udp_init_sock,
@@ -151,6 +163,8 @@ int udp_sendto(struct sock *sk, const void *buf, int len,
     uh->check = udp_checksum(skb->data, saddr, daddr, UDP_HDR_LEN + len);
     if (uh->check == 0) uh->check = 0xffff;
 
+    udp_dbg("out", saddr, sk->sport, daddr, dport, len);
+
     output = *sk;
     output.saddr = saddr;
     output.daddr = daddr;
@@ -171,6 +185,9 @@ void udp_in(struct sk_buff *skb)
     if (len < UDP_HDR_LEN || len > ip_len(ih)) goto drop;
     if (uh->check != 0 && udp_checksum((uint8_t *)uh, ih->saddr, ih->daddr, len) != 0)
         goto drop;
+
+    udp_dbg("in", ih->saddr, ntohs(uh->source), ih->daddr,
+            ntohs(uh->dest), len - UDP_HDR_LEN);
 
     sock = socket_lookup(ntohs(uh->source), ntohs(uh->dest));
     if (!sock) goto drop;

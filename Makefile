@@ -40,7 +40,7 @@ all: lvl-ip apps udp-test
 
 .PHONY: udp-test
 
-test: CFLAGS += -DDEBUG_SOCKET -DDEBUG_TCP -g
+test: CFLAGS += -DDEBUG_SOCKET -DDEBUG_TCP -DDEBUG_UDP -g
 test: lvl-ip apps udp-test
 	@echo
 	@echo "Networking capabilites are required for test dependencies:"
