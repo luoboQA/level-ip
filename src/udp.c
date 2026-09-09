@@ -41,7 +41,15 @@ static uint16_t udp_checksum(uint8_t *data, uint32_t saddr,
     pseudo.zero = 0;
     pseudo.proto = IP_UDP;
     pseudo.len = htons(len);
-    return checksum(data, len, checksum(&pseudo, sizeof(pseudo), 0));
+    /* checksum() expects the one's-complement sum as start_sum, not an
+     * already-complemented checksum. Keep this consistent with TCP's
+     * pseudo-header checksum implementation. */
+    uint32_t sum = 0;
+    sum += pseudo.saddr;
+    sum += pseudo.daddr;
+    sum += htons(pseudo.proto);
+    sum += pseudo.len;
+    return checksum(data, len, sum);
 }
 
 struct sock *udp_alloc_sock(int protocol)
