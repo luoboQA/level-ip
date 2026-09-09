@@ -204,6 +204,11 @@ void arp_rcv(struct sk_buff *skb)
     case ARP_REQUEST:
         arp_reply(skb, netdev);
         return;
+    case ARP_REPLY:
+        /* The sender's MAC was already learned above.  An ARP reply is a
+         * valid packet and does not need a response. */
+        free_skb(skb);
+        return;
     default:
         printf("ARP: Opcode not supported\n");
         goto drop_pkt;
