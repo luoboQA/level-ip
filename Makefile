@@ -33,12 +33,12 @@ apps: $(apps)
 	$(MAKE) -C apps/curl
 	$(MAKE) -C apps/curl-poll
 
-udp-test: $(udp_test)
-
-$(udp_test): tests/suites/udp/udp-client.c tests/suites/udp/Makefile
+udp-test:
 	$(MAKE) -C tests/suites/udp
 
 all: lvl-ip apps udp-test
+
+.PHONY: udp-test
 
 test: CFLAGS += -DDEBUG_SOCKET -DDEBUG_TCP -g
 test: lvl-ip apps udp-test
