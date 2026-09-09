@@ -27,7 +27,9 @@ int dst_neigh_output(struct sk_buff *skb)
             arp_request(saddr, daddr, netdev);
         }
 
-        /* The packet will be transmitted from arp_flush_pending(). */
-        return -1;
+        /* The packet will be transmitted from arp_flush_pending(). Treat it
+         * as accepted by the network layer; UDP sendto() must not fail just
+         * because neighbor discovery is still in progress. */
+        return 0;
     }
 }
