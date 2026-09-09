@@ -1,13 +1,11 @@
 #!/bin/bash
 
 set -eu
-set -o pipefail
 
 source "$(dirname $0)/../../utils/common"
 
 function setup {
-    echo "[UDP] starting echo server" >> "$repo/lvl-ip-test.log"
-    /usr/bin/env python3 "$(dirname $0)/udp-server.py" >> "$repo/lvl-ip-test.log" 2>&1 &
+    /usr/bin/env python3 "$(dirname $0)/udp-server.py" >/dev/null 2>&1 &
     udpserver="$!"
     sleep 1
 }
@@ -18,9 +16,7 @@ function teardown {
 }
 
 function test_udp_echo {
-    "$repo/tools/level-ip" "$repo/tests/suites/udp/udp-client" \
-        2>&1 | tee -a "$repo/lvl-ip-test.log"
-    echo "[UDP] echo test passed" >> "$repo/lvl-ip-test.log"
+    "$repo/tools/level-ip" "$repo/tests/suites/udp/udp-client"
 }
 
 trap teardown EXIT ERR
