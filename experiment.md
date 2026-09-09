@@ -36,8 +36,8 @@ cd tools
 ./level-ip ../apps/curl/curl example.com 443
 
 4. 使用 curl-poll 工具
-cd apps/curl-poll
-./curl-poll example.com 80
+cd tools
+./level-ip ../apps/curl-poll/curl-poll example.com 80
 
 terminal3: 抓包分析
 1. 监控 tap0 接口所有流量

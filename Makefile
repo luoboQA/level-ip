@@ -34,15 +34,19 @@ apps: $(apps)
 
 all: lvl-ip apps
 
-test: debug apps
+test: CFLAGS += -DDEBUG_SOCKET -DDEBUG_TCP -g
+test: lvl-ip apps
 	@echo
 	@echo "Networking capabilites are required for test dependencies:"
 	which arping | sudo xargs setcap cap_net_raw=ep
 	which tc | sudo xargs setcap cap_net_admin=ep
 	@echo
-	cd tests && ./test-run-all
+	cd tests && sudo ./test-run-all
 
 clean:
 	rm -f build/*.o lvl-ip
+	rm apps/curl/curl
+	rm apps/curl-poll/curl-poll
 	rm -f debug-*
+	rm -f lvl-ip-test.log
 	@echo "Cleaned."

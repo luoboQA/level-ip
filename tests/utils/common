@@ -9,14 +9,20 @@ function start_stack {
     "$repo/lvl-ip" > ../lvl-ip-test.log 2>&1 &
     stackip="$!"
 
-    for i in {1..3}; do
-        ping -c1 -w1 10.0.0.5 >/dev/null || continue
+    for i in {1..10}; do
+        if ! kill -0 "$stackip" 2>/dev/null; then
+            break
+        fi
 
-        return 0
+        ping -c1 -W1 10.0.0.5 >/dev/null 2>&1 && return 0
+
+        sleep 1
     done
 
     echo "Stack did not start up correctly" >&2
     cat ../lvl-ip-test.log
+    kill "$stackip" 2>/dev/null || true
+    wait "$stackip" 2>/dev/null || true
     return 1
 }
 
