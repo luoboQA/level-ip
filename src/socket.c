@@ -423,9 +423,21 @@ int _fcntl(pid_t pid, int fildes, int cmd, ...)
     case F_GETFL:
         rc = sock->flags;
         goto out;
+    case F_GETFD:
+        /* Level-IP descriptors are managed by the IPC thread; there are no
+         * close-on-exec flags to expose yet, but applications such as dig
+         * still expect F_GETFD to be a valid query. */
+        rc = 0;
+        goto out;
     case F_SETFL:
         va_start(ap, cmd);
         sock->flags = va_arg(ap, int);
+        va_end(ap);
+        rc = 0;
+        goto out;
+    case F_SETFD:
+        va_start(ap, cmd);
+        (void)va_arg(ap, int);
         va_end(ap);
         rc = 0;
         goto out;
