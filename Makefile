@@ -7,6 +7,15 @@ apps = apps/curl/curl
 
 lvl-ip: $(obj)
 	$(CC) $(CFLAGS) $(CPPFLAGS) $(obj) -o lvl-ip
+	@# Creating TUN/TAP devices (if they exist, ignore errors)
+	@echo "Checking TUN/TAP devices..."
+	@sudo sh -c 'mkdir -p /dev/net'
+	@sudo sh -c 'mknod /dev/net/tap c 10 200 2>/dev/null || true'
+	@sudo sh -c 'mknod /dev/net/tun c 10 200 2>/dev/null || true'
+	@sudo chmod 0666 /dev/net/tap 2>/dev/null || true
+	@sudo chmod 0666 /dev/net/tun 2>/dev/null || true
+	@sudo modprobe tun
+	@echo "Device setup complete."
 	@echo
 	@echo "lvl-ip needs CAP_NET_ADMIN:"
 	sudo setcap cap_setpcap,cap_net_admin=ep lvl-ip
@@ -14,8 +23,9 @@ lvl-ip: $(obj)
 build/%.o: src/%.c ${headers}
 	$(CC) $(CFLAGS) $(CPPFLAGS) -c $< -o $@
 
-debug: CFLAGS+= -DDEBUG_SOCKET -DDEBUG_TCP -g -fsanitize=thread
+debug: CFLAGS+= -DDEBUG_SOCKET -DDEBUG_TCP -g 
 debug: lvl-ip
+	sudo ./lvl-ip 2>&1 | tee debug-$(shell date +%Y%m%d_%H%M%S).log
 
 apps: $(apps)
 	$(MAKE) -C tools
@@ -33,4 +43,6 @@ test: debug apps
 	cd tests && ./test-run-all
 
 clean:
-	rm build/*.o lvl-ip
+	rm -f build/*.o lvl-ip
+	rm -f debug-*
+	@echo "Cleaned."

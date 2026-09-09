@@ -86,6 +86,10 @@ void tun_init()
     if (set_if_address(dev, tapaddr) != 0) {
         print_err("ERROR when setting addr for if\n");
     }
+    printf("[INFO] Starting Level-IP...\n");
+    printf("[INFO] TAP device %s  has been created\n", dev);
+    printf("[INFO] IP address: %s/24\n", tapaddr);
+    printf("[INFO] Waiting for connections...\n");
 }
 
 void free_tun()
