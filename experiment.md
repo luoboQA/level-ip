@@ -726,7 +726,8 @@ make debug
 
   项目还提供一个只发送、不等待回复的 UDP 应用：
 
-  启动服务器 python3 tests/suites/udp/udp-server.py
+  启动服务器  
+  ```python3 tests/suites/udp/udp-server.py  ```
   
   ```bash
   make apps
