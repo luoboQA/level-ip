@@ -7,6 +7,7 @@
 
 #define IPV4 0x04
 #define IP_TCP 0x06
+#define IP_UDP 0x11
 #define ICMPV4 0x01
 
 #define IP_HDR_LEN sizeof(struct iphdr)

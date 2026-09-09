@@ -150,6 +150,8 @@ static int tcp_queue_transmit_skb(struct sock *sk, struct sk_buff *skb)
         if (th->fin) tcb->snd_nxt++;
     }
 
+    /* The retransmission queue owns a reference to the segment. */
+    skb->refcnt++;
     skb_queue_tail(&sk->write_queue, skb);
 
     return rc;

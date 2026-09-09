@@ -166,6 +166,57 @@ static int ipc_connect(int sockfd, struct ipc_msg *msg)
     return ipc_write_rc(sockfd, pid, IPC_CONNECT, rc);
 }
 
+static int ipc_bind(int sockfd, struct ipc_msg *msg)
+{
+    struct ipc_bind *payload = (struct ipc_bind *)msg->data;
+    int rc = _bind(msg->pid, payload->sockfd, &payload->addr, payload->addrlen);
+    return ipc_write_rc(sockfd, msg->pid, IPC_BIND, rc);
+}
+
+static int ipc_sendto(int sockfd, struct ipc_msg *msg, int blen)
+{
+    struct ipc_sendto *payload = (struct ipc_sendto *)msg->data;
+    int head = blen - sizeof(struct ipc_msg) - sizeof(struct ipc_sendto);
+    uint8_t *buf = alloca(payload->len);
+    size_t first = payload->len < (size_t)head ? payload->len : (size_t)head;
+
+    memcpy(buf, payload->buf, first);
+    if (payload->len > first) {
+        int tail = read(sockfd, buf + first, payload->len - first);
+        if (tail != (int)(payload->len - first)) return -EIO;
+    }
+
+    return ipc_write_rc(sockfd, msg->pid, IPC_SENDTO,
+                        _sendto(msg->pid, payload->sockfd, buf, payload->len,
+                                payload->flags, &payload->addr, payload->addrlen));
+}
+
+static int ipc_recvfrom(int sockfd, struct ipc_msg *msg)
+{
+    struct ipc_recvfrom *payload = (struct ipc_recvfrom *)msg->data;
+    uint8_t *buf = alloca(payload->len);
+    struct sockaddr_storage addr;
+    socklen_t addrlen = sizeof(addr);
+    int rc = _recvfrom(msg->pid, payload->sockfd, buf, payload->len,
+                       payload->flags, (struct sockaddr *)&addr, &addrlen);
+    size_t data_len = rc > 0 ? (size_t)rc : 0;
+    size_t resplen = sizeof(struct ipc_msg) + sizeof(struct ipc_err) +
+                     sizeof(struct ipc_recvfrom_result) + data_len;
+    struct ipc_msg *response = alloca(resplen);
+    struct ipc_err err = { .rc = rc < 0 ? -1 : rc, .err = rc < 0 ? -rc : 0 };
+    struct ipc_recvfrom_result *result;
+
+    response->type = IPC_RECVFROM;
+    response->pid = msg->pid;
+    memcpy(response->data, &err, sizeof(err));
+    result = (struct ipc_recvfrom_result *)((struct ipc_err *)response->data)->data;
+    result->len = data_len;
+    result->addrlen = addrlen;
+    memcpy(&result->addr, &addr, sizeof(result->addr));
+    if (data_len) memcpy(result->buf, buf, data_len);
+    return ipc_try_send(sockfd, response, resplen);
+}
+
 static int ipc_socket(int sockfd, struct ipc_msg *msg)
 {
     struct ipc_socket *sock = (struct ipc_socket *)msg->data;
@@ -406,6 +457,15 @@ static int demux_ipc_socket_call(int sockfd, char *cmdbuf, int blen)
         break;
     case IPC_CONNECT:
         return ipc_connect(sockfd, msg);
+        break;
+    case IPC_BIND:
+        return ipc_bind(sockfd, msg);
+        break;
+    case IPC_SENDTO:
+        return ipc_sendto(sockfd, msg, blen);
+        break;
+    case IPC_RECVFROM:
+        return ipc_recvfrom(sockfd, msg);
         break;
     case IPC_WRITE:
         return ipc_write(sockfd, msg);

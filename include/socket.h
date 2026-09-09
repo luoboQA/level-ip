@@ -73,8 +73,13 @@ struct socket {
 void *socket_ipc_open(void *args);
 int _socket(pid_t pid, int domain, int type, int protocol);
 int _connect(pid_t pid, int sockfd, const struct sockaddr *addr, socklen_t addrlen);
+int _bind(pid_t pid, int sockfd, const struct sockaddr *addr, socklen_t addrlen);
 int _write(pid_t pid, int sockfd, const void *buf, const unsigned int count);
+int _sendto(pid_t pid, int sockfd, const void *buf, const unsigned int count,
+            int flags, const struct sockaddr *addr, socklen_t addrlen);
 int _read(pid_t pid, int sockfd, void *buf, const unsigned int count);
+int _recvfrom(pid_t pid, int sockfd, void *buf, const unsigned int count,
+              int flags, struct sockaddr *addr, socklen_t *addrlen);
 int _close(pid_t pid, int sockfd);
 int _poll(pid_t pid, struct pollfd fds[], nfds_t nfds, int timeout);
 int _fcntl(pid_t pid, int fildes, int cmd, ...);

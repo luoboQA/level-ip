@@ -34,6 +34,8 @@ tc qdisc replace dev tap0 root handle 1: htb
 pids="$pids $!"
 ./suites/icmp/suite-icmp &
 pids="$pids $!"
+./suites/udp/suite-udp &
+pids="$pids $!"
 ./suites/tcp/suite-curl &
 pids="$pids $!"
 ./suites/tcp/suite-packet-delay &

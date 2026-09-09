@@ -4,6 +4,7 @@
 #include "ip.h"
 #include "icmpv4.h"
 #include "tcp.h"
+#include "udp.h"
 #include "utils.h"
 
 static void ip_init_pkt(struct iphdr *ih)
@@ -54,6 +55,9 @@ int ip_rcv(struct sk_buff *skb)
         return 0;
     case IP_TCP:
         tcp_in(skb);
+        return 0;
+    case IP_UDP:
+        udp_in(skb);
         return 0;
     default:
         print_err("Unknown IP header proto\n");

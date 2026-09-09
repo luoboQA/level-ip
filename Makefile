@@ -4,6 +4,7 @@ src = $(wildcard src/*.c)
 obj = $(patsubst src/%.c, build/%.o, $(src))
 headers = $(wildcard include/*.h)
 apps = apps/curl/curl
+udp_test = tests/suites/udp/udp-client
 
 lvl-ip: $(obj)
 	$(CC) $(CFLAGS) $(CPPFLAGS) $(obj) -o lvl-ip
@@ -32,10 +33,15 @@ apps: $(apps)
 	$(MAKE) -C apps/curl
 	$(MAKE) -C apps/curl-poll
 
-all: lvl-ip apps
+udp-test: $(udp_test)
+
+$(udp_test): tests/suites/udp/udp-client.c tests/suites/udp/Makefile
+	$(MAKE) -C tests/suites/udp
+
+all: lvl-ip apps udp-test
 
 test: CFLAGS += -DDEBUG_SOCKET -DDEBUG_TCP -g
-test: lvl-ip apps
+test: lvl-ip apps udp-test
 	@echo
 	@echo "Networking capabilites are required for test dependencies:"
 	which arping | sudo xargs setcap cap_net_raw=ep
@@ -47,6 +53,7 @@ clean:
 	rm -f build/*.o lvl-ip
 	rm apps/curl/curl
 	rm apps/curl-poll/curl-poll
+	rm -f tests/suites/udp/udp-client
 	rm -f debug-*
 	rm -f lvl-ip-test.log
 	@echo "Cleaned."

@@ -22,9 +22,12 @@ int dst_neigh_output(struct sk_buff *skb)
     if (dmac) {
         return netdev_transmit(skb, dmac, ETH_P_IP);
     } else {
-        arp_request(saddr, daddr, netdev);
+        /* Keep ownership of skb until the ARP reply arrives. */
+        if (arp_queue_skb(skb, daddr)) {
+            arp_request(saddr, daddr, netdev);
+        }
 
-        /* Inform upper layer that traffic was not sent, retry later */
+        /* The packet will be transmitted from arp_flush_pending(). */
         return -1;
     }
 }

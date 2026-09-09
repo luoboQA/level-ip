@@ -142,6 +142,7 @@ struct socket *socket_lookup(uint16_t remoteport, uint16_t localport)
 {
     struct list_head *item;
     struct socket *sock = NULL;
+    struct socket *fallback = NULL;
     struct sock *sk = NULL;
 
     pthread_rwlock_rdlock(&slock);
@@ -155,9 +156,10 @@ struct socket *socket_lookup(uint16_t remoteport, uint16_t localport)
         if (sk->sport == localport && sk->dport == remoteport) {
             goto found;
         }
+        if (sk->sport == localport && sk->dport == 0) fallback = sock;
     }
 
-    sock = NULL;
+    sock = fallback;
 found:
     pthread_rwlock_unlock(&slock);
     return sock;
@@ -273,6 +275,19 @@ int _connect(pid_t pid, int sockfd, const struct sockaddr *addr, socklen_t addrl
     return rc;
 }
 
+int _bind(pid_t pid, int sockfd, const struct sockaddr *addr, socklen_t addrlen)
+{
+    struct socket *sock = get_socket(pid, sockfd);
+    int rc;
+
+    if (!sock) return -EBADF;
+    socket_wr_acquire(sock);
+    if (!sock->sk->ops->bind) rc = -EOPNOTSUPP;
+    else rc = sock->sk->ops->bind(sock->sk, addr, addrlen);
+    socket_release(sock);
+    return rc;
+}
+
 int _write(pid_t pid, int sockfd, const void *buf, const unsigned int count)
 {
     struct socket *sock;
@@ -289,6 +304,20 @@ int _write(pid_t pid, int sockfd, const void *buf, const unsigned int count)
     return rc;
 }
 
+int _sendto(pid_t pid, int sockfd, const void *buf, const unsigned int count,
+            int flags, const struct sockaddr *addr, socklen_t addrlen)
+{
+    struct socket *sock = get_socket(pid, sockfd);
+    int rc;
+
+    if (!sock) return -EBADF;
+    socket_wr_acquire(sock);
+    if (!sock->sk->ops->sendto) rc = -EOPNOTSUPP;
+    else rc = sock->sk->ops->sendto(sock->sk, buf, count, addr, addrlen, flags);
+    socket_release(sock);
+    return rc;
+}
+
 int _read(pid_t pid, int sockfd, void *buf, const unsigned int count)
 {
     struct socket *sock;
@@ -302,6 +331,23 @@ int _read(pid_t pid, int sockfd, void *buf, const unsigned int count)
     int rc = sock->ops->read(sock, buf, count);
     socket_release(sock);
 
+    return rc;
+}
+
+int _recvfrom(pid_t pid, int sockfd, void *buf, const unsigned int count,
+              int flags, struct sockaddr *addr, socklen_t *addrlen)
+{
+    struct socket *sock = get_socket(pid, sockfd);
+    int rc;
+
+    if (!sock) return -EBADF;
+    socket_wr_acquire(sock);
+    if (!sock->sk->ops->recvfrom) {
+        rc = -EOPNOTSUPP;
+    } else {
+        rc = sock->sk->ops->recvfrom(sock->sk, buf, count, flags, addr, addrlen);
+    }
+    socket_release(sock);
     return rc;
 }
 

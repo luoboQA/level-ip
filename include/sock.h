@@ -10,10 +10,15 @@ struct sock;
 struct net_ops {
     struct sock* (*alloc_sock) (int protocol);
     int (*init) (struct sock *sk);
+    int (*bind) (struct sock *sk, const struct sockaddr *addr, int addr_len);
     int (*connect) (struct sock *sk, const struct sockaddr *addr, int addr_len, int flags);
+    int (*sendto) (struct sock *sk, const void *buf, int len,
+                   const struct sockaddr *addr, int addr_len, int flags);
     int (*disconnect) (struct sock *sk, int flags);
     int (*write) (struct sock *sk, const void *buf, int len);
     int (*read) (struct sock *sk, void *buf, int len);
+    int (*recvfrom) (struct sock *sk, void *buf, int len, int flags,
+                     struct sockaddr *addr, socklen_t *addr_len);
     int (*recv_notify) (struct sock *sk);
     int (*close) (struct sock *sk);
     int (*abort) (struct sock *sk);

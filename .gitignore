@@ -5,4 +5,6 @@ a.out
 *cscope*
 lvl-ip
 tests/venv
+.history/
+tests/suites/udp/udp-client
 vgcore*

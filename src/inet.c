@@ -3,14 +3,18 @@
 #include "socket.h"
 #include "sock.h"
 #include "tcp.h"
+#include "udp.h"
 #include "wait.h"
 
 extern struct net_ops tcp_ops;
+extern struct net_ops udp_ops;
 
 static int inet_stream_connect(struct socket *sock, const struct sockaddr *addr,
                                int addr_len, int flags);
+static int inet_dgram_connect(struct socket *sock, const struct sockaddr *addr,
+                              int addr_len, int flags);
 
-static int INET_OPS = 1;
+static int INET_OPS = 2;
 
 struct net_family inet = {
     .create = inet_create,
@@ -27,12 +31,29 @@ static struct sock_ops inet_stream_ops = {
     .getsockname = &inet_getsockname,
 };
 
+static struct sock_ops inet_dgram_ops = {
+    .connect = &inet_dgram_connect,
+    .write = &inet_write,
+    .read = &inet_read,
+    .close = &inet_close,
+    .free = &inet_free,
+    .abort = &inet_abort,
+    .getpeername = &inet_getpeername,
+    .getsockname = &inet_getsockname,
+};
+
 static struct sock_type inet_ops[] = {
     {
         .sock_ops = &inet_stream_ops,
         .net_ops = &tcp_ops,
         .type = SOCK_STREAM,
         .protocol = IPPROTO_TCP,
+    },
+    {
+        .sock_ops = &inet_dgram_ops,
+        .net_ops = &udp_ops,
+        .type = SOCK_DGRAM,
+        .protocol = IPPROTO_UDP,
     }
 };
 
@@ -42,7 +63,8 @@ int inet_create(struct socket *sock, int protocol)
     struct sock_type *skt = NULL;
 
     for (int i = 0; i < INET_OPS; i++) {
-        if (inet_ops[i].type & sock->type) {
+        if ((inet_ops[i].type & sock->type) &&
+            (protocol == 0 || protocol == inet_ops[i].protocol)) {
             skt = &inet_ops[i];
             break;
         }
@@ -141,6 +163,20 @@ out:
     return sk->err;
 sock_error:
     rc = sk->err;
+    return rc;
+}
+
+static int inet_dgram_connect(struct socket *sock, const struct sockaddr *addr,
+                              int addr_len, int flags)
+{
+    struct sock *sk = sock->sk;
+    int rc;
+
+    if (addr_len < (int)sizeof(struct sockaddr_in)) return -EINVAL;
+    if (sock->state == SS_CONNECTED) return -EISCONN;
+
+    rc = sk->ops->connect(sk, addr, addr_len, flags);
+    if (rc == 0) sock->state = SS_CONNECTED;
     return rc;
 }
 

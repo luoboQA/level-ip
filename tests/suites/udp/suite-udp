@@ -1,0 +1,24 @@
+#!/bin/bash
+
+set -eu
+
+source "$(dirname $0)/../../utils/common"
+
+function setup {
+    /usr/bin/env python3 "$(dirname $0)/udp-server.py" >/dev/null 2>&1 &
+    udpserver="$!"
+    sleep 1
+}
+
+function teardown {
+    kill "$udpserver" 2>/dev/null || true
+    wait "$udpserver" 2>/dev/null || true
+}
+
+function test_udp_echo {
+    "$repo/tools/level-ip" "$repo/tests/suites/udp/udp-client"
+}
+
+trap teardown EXIT ERR
+setup
+test_run "test_udp_echo" "$0"

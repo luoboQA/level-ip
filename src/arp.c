@@ -9,6 +9,12 @@
 
 static uint8_t broadcast_hw[] = { 0xff, 0xff, 0xff, 0xff, 0xff, 0xff };
 static LIST_HEAD(arp_cache);
+struct arp_pending {
+    struct list_head list;
+    struct sk_buff *skb;
+    uint32_t daddr;
+};
+static LIST_HEAD(arp_pending_queue);
 static pthread_mutex_t lock = PTHREAD_MUTEX_INITIALIZER;
 
 static struct sk_buff *arp_alloc_skb()
@@ -71,6 +77,70 @@ void arp_init()
 
 }
 
+/* Queue an IP packet while its next-hop MAC is being resolved.
+ * Return non-zero when the caller should send a new ARP request. */
+int arp_queue_skb(struct sk_buff *skb, uint32_t daddr)
+{
+    struct list_head *item;
+    struct arp_pending *pending;
+    int request = 1;
+
+    pthread_mutex_lock(&lock);
+    list_for_each(item, &arp_pending_queue) {
+        pending = list_entry(item, struct arp_pending, list);
+        if (pending->daddr == daddr) {
+            request = 0;
+            break;
+        }
+    }
+
+    pending = malloc(sizeof(*pending));
+    if (!pending) {
+        pthread_mutex_unlock(&lock);
+        return 0;
+    }
+    list_init(&pending->list);
+    pending->skb = skb;
+    pending->daddr = daddr;
+    skb->refcnt++;
+    list_add_tail(&pending->list, &arp_pending_queue);
+    pthread_mutex_unlock(&lock);
+
+    return request;
+}
+
+void arp_flush_pending(uint32_t sip)
+{
+    uint8_t hwaddr[6];
+    uint8_t *cached = arp_get_hwaddr(sip);
+    struct arp_pending *pending;
+    struct list_head *item;
+
+    if (!cached) return;
+    memcpy(hwaddr, cached, sizeof(hwaddr));
+
+    for (;;) {
+        pending = NULL;
+        pthread_mutex_lock(&lock);
+        list_for_each(item, &arp_pending_queue) {
+            struct arp_pending *candidate =
+                list_entry(item, struct arp_pending, list);
+            if (candidate->daddr == sip) {
+                pending = candidate;
+                list_del(&candidate->list);
+                break;
+            }
+        }
+        pthread_mutex_unlock(&lock);
+
+        if (!pending) break;
+        netdev_transmit(pending->skb, hwaddr, ETH_P_IP);
+        pending->skb->refcnt--;
+        free_skb(pending->skb);
+        free(pending);
+    }
+}
+
 void arp_rcv(struct sk_buff *skb)
 {
     struct arp_hdr *arphdr;
@@ -112,6 +182,9 @@ void arp_rcv(struct sk_buff *skb)
         print_err("ERR: No free space in ARP translation table\n");
         goto drop_pkt;
     }
+
+    /* Both ARP requests and replies teach us the sender's MAC address. */
+    arp_flush_pending(arpdata->sip);
 
     switch (arphdr->opcode) {
     case ARP_REQUEST:
@@ -234,6 +307,15 @@ void free_arp()
 {
     struct list_head *item, *tmp;
     struct arp_cache_entry *entry;
+    struct arp_pending *pending;
+
+    list_for_each_safe(item, tmp, &arp_pending_queue) {
+        pending = list_entry(item, struct arp_pending, list);
+        list_del(item);
+        pending->skb->refcnt--;
+        free_skb(pending->skb);
+        free(pending);
+    }
 
     list_for_each_safe(item, tmp, &arp_cache) {
         entry = list_entry(item, struct arp_cache_entry, list);
