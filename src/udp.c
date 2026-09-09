@@ -13,8 +13,10 @@ static void udp_dbg(const char *direction, uint32_t saddr, uint16_t sport,
                     uint32_t daddr, uint16_t dport, uint16_t len)
 {
     print_debug("UDP %s %u.%u.%u.%u.%u > %u.%u.%u.%u.%u len %u", direction,
-                saddr >> 24, saddr >> 16, saddr >> 8, saddr, sport,
-                daddr >> 24, daddr >> 16, daddr >> 8, daddr, dport, len);
+                (saddr >> 24) & 0xff, (saddr >> 16) & 0xff,
+                (saddr >> 8) & 0xff, saddr & 0xff, sport,
+                (daddr >> 24) & 0xff, (daddr >> 16) & 0xff,
+                (daddr >> 8) & 0xff, daddr & 0xff, dport, len);
 }
 #else
 #define udp_dbg(direction, saddr, sport, daddr, dport, len)
@@ -89,6 +91,7 @@ int udp_bind(struct sock *sk, const struct sockaddr *addr, int addrlen)
     sk->sport = port ? port : udp_alloc_port();
     sk->saddr = ntohl(in->sin_addr.s_addr);
     if (sk->saddr == INADDR_ANY) sk->saddr = parse_ipv4_string("10.0.0.4");
+    udp_dbg("bind", sk->saddr, sk->sport, 0, 0, 0);
     return 0;
 }
 
@@ -240,6 +243,8 @@ int udp_recvfrom(struct sock *sk, void *buf, int len, int flags,
         source->sin_addr.s_addr = htonl(skb->seq);
         *addrlen = sizeof(*source);
     }
+    udp_dbg("deliver", skb->seq, (uint16_t)skb->end_seq,
+            sk->saddr, sk->sport, copied);
     skb_dequeue(&sk->receive_queue);
     skb->refcnt--;
     free_skb(skb);

@@ -17,6 +17,17 @@ struct arp_pending {
 static LIST_HEAD(arp_pending_queue);
 static pthread_mutex_t lock = PTHREAD_MUTEX_INITIALIZER;
 
+#ifdef DEBUG_ARP
+static void arp_pending_dbg(const char *event, uint32_t ip)
+{
+    print_debug("arp %s %u.%u.%u.%u", event,
+                (ip >> 24) & 0xff, (ip >> 16) & 0xff,
+                (ip >> 8) & 0xff, ip & 0xff);
+}
+#else
+#define arp_pending_dbg(event, ip)
+#endif
+
 static struct sk_buff *arp_alloc_skb()
 {
     struct sk_buff *skb = alloc_skb(ETH_HDR_LEN + ARP_HDR_LEN + ARP_DATA_LEN);
@@ -106,6 +117,8 @@ int arp_queue_skb(struct sk_buff *skb, uint32_t daddr)
     list_add_tail(&pending->list, &arp_pending_queue);
     pthread_mutex_unlock(&lock);
 
+    arp_pending_dbg("queued packet for", daddr);
+
     return request;
 }
 
@@ -134,6 +147,7 @@ void arp_flush_pending(uint32_t sip)
         pthread_mutex_unlock(&lock);
 
         if (!pending) break;
+        arp_pending_dbg("retry packet for", sip);
         netdev_transmit(pending->skb, hwaddr, ETH_P_IP);
         pending->skb->refcnt--;
         free_skb(pending->skb);
