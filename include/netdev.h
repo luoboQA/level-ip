@@ -24,6 +24,7 @@ struct netdev {
 
 void netdev_init();
 int netdev_transmit(struct sk_buff *skb, uint8_t *dst, uint16_t ethertype);
+int netdev_update_neigh(uint32_t addr, const uint8_t *hwaddr);
 void *netdev_rx_loop();
 void free_netdev();
 struct netdev *netdev_get(uint32_t sip);

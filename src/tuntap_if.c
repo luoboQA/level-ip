@@ -70,6 +70,11 @@ int tun_write(char *buf, int len)
     return write(tun_fd, buf, len);
 }
 
+const char *tun_name(void)
+{
+    return dev;
+}
+
 void tun_init()
 {
     dev = calloc(10, 1);

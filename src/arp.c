@@ -289,7 +289,12 @@ void arp_reply(struct sk_buff *skb, struct netdev *netdev)
 
     skb->dev = netdev;
 
-    netdev_transmit(skb, arpdata->dmac, ETH_P_ARP);
+    if (netdev_transmit(skb, arpdata->dmac, ETH_P_ARP) >= 0) {
+        /* Raw arping traffic bypasses the kernel neighbour protocol.  Keep
+         * the host's neighbour table in sync with the ARP reply that was
+         * just emitted by the userspace stack. */
+        netdev_update_neigh(netdev->addr, netdev->hwaddr);
+    }
     free_skb(skb);
 }
 

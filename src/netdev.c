@@ -8,6 +8,9 @@
 #include "tuntap_if.h"
 #include "basic.h"
 
+#include <linux/netlink.h>
+#include <linux/rtnetlink.h>
+
 struct netdev *loop;
 struct netdev *netdev;
 extern int running;
@@ -58,6 +61,76 @@ int netdev_transmit(struct sk_buff *skb, uint8_t *dst_hw, uint16_t ethertype)
     ret = tun_write((char *)skb->data, skb->len);
 
     return ret;
+}
+
+static int netlink_addattr(struct nlmsghdr *nlh, size_t maxlen,
+                           uint16_t type, const void *data, size_t len)
+{
+    size_t attr_len = RTA_LENGTH(len);
+    size_t aligned_len = RTA_ALIGN(attr_len);
+    struct rtattr *rta;
+
+    if (NLMSG_ALIGN(nlh->nlmsg_len) + aligned_len > maxlen) return -1;
+
+    rta = (struct rtattr *)((char *)nlh + NLMSG_ALIGN(nlh->nlmsg_len));
+    rta->rta_type = type;
+    rta->rta_len = attr_len;
+    memcpy(RTA_DATA(rta), data, len);
+    memset((char *)rta + attr_len, 0, aligned_len - attr_len);
+    nlh->nlmsg_len = NLMSG_ALIGN(nlh->nlmsg_len) + aligned_len;
+    return 0;
+}
+
+int netdev_update_neigh(uint32_t addr, const uint8_t *hwaddr)
+{
+    struct {
+        struct nlmsghdr nlh;
+        struct ndmsg ndm;
+        char attrs[128];
+    } req = {0};
+    struct {
+        struct nlmsghdr nlh;
+        struct nlmsgerr error;
+    } response = {0};
+    struct ifreq ifr = {0};
+    struct sockaddr_nl kernel = {0};
+    int fd;
+
+    strncpy(ifr.ifr_name, tun_name(), IFNAMSIZ - 1);
+    fd = socket(AF_NETLINK, SOCK_RAW, NETLINK_ROUTE);
+    if (fd < 0) return -1;
+
+    if (ioctl(fd, SIOCGIFINDEX, &ifr) < 0) {
+        close(fd);
+        return -1;
+    }
+
+    req.nlh.nlmsg_len = NLMSG_LENGTH(sizeof(req.ndm));
+    req.nlh.nlmsg_type = RTM_NEWNEIGH;
+    req.nlh.nlmsg_flags = NLM_F_REQUEST | NLM_F_ACK | NLM_F_CREATE | NLM_F_REPLACE;
+    req.ndm.ndm_family = AF_INET;
+    req.ndm.ndm_ifindex = ifr.ifr_ifindex;
+    req.ndm.ndm_state = NUD_STALE;
+    req.ndm.ndm_type = RTN_UNICAST;
+
+    addr = htonl(addr);
+    if (netlink_addattr(&req.nlh, sizeof(req), NDA_DST, &addr,
+                        sizeof(addr)) < 0 ||
+        netlink_addattr(&req.nlh, sizeof(req), NDA_LLADDR, hwaddr, 6) < 0) {
+        close(fd);
+        return -1;
+    }
+
+    kernel.nl_family = AF_NETLINK;
+    if (sendto(fd, &req, req.nlh.nlmsg_len, 0,
+               (struct sockaddr *)&kernel, sizeof(kernel)) < 0 ||
+        recv(fd, &response, sizeof(response), 0) < 0) {
+        close(fd);
+        return -1;
+    }
+
+    close(fd);
+    return response.error.error == 0 ? 0 : -1;
 }
 
 static int netdev_receive(struct sk_buff *skb)
