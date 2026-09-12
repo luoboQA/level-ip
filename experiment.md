@@ -1,5 +1,7 @@
 # 主线
 主线顺序：APP->liblevelip->IPC->socket->TCP/UDP->IP->DST/Route/ARP->Ethernet->TUN/TAP
+反：TUN/TAP -> Ethernet -> IP/ARP -> TCP/UDP -> socket -> IPC -> liblevelip -> APP
+正向是你主动调函数一层层push头构造send下去；反向是CORE线程read(TAP)一层层pull头上来，最后靠wakeup把等在IPC里的APP叫醒
 # TCP实验流程：
 开启 IP 转发
 sudo sysctl -w net.ipv4.ip_forward=1
