@@ -1,3 +1,5 @@
+# 主线
+主线顺序：APP->liblevelip->IPC->socket->TCP/UDP->IP->DST/Route/ARP->Ethernet->TUN/TAP
 # TCP实验流程：
 开启 IP 转发
 sudo sysctl -w net.ipv4.ip_forward=1
