@@ -258,13 +258,13 @@ rcv_wnd	receive window	接收窗口（本端还能收多少）
 
 MTU	Maximum Transmission Unit	链路层最大传输单元（以太网 1500）
 MSS	Maximum Segment Size	TCP 最大段大小
-rmss	receive MSS	本端能接收的最大段
-smss	send MSS	本端发送的最大段
+rmss（receive MSS）：本端通告给对方的值，告诉对方"你发给我的单个 TCP 段载荷不要超过这个数"。它取决于本端接收能力，通常按本端 MTU 算，IPv4 下默认 1460。
+smss（send MSS）：本端实际发送时单个段的最大载荷。它取：smss = min(对端通告的 rmss, 本端路径 MTU 推出的 MSS)
 MSS = MTU - IP 头 - TCP 头
     = 1500 - 20 - 20
-    = 1460
+    = 1460（对 IPv4 + 无 TCP 选项成立。如果有 TCP 选项（如 timestamp、SACK），TCP 头会大于 20，MSS 要相应减小）
 tsk->rmss = 1460;   // 默认 1460
-tsk->smss = 536;    // 默认 536（RFC 规定的最小值）
+tsk->smss = 536;    // 默认 536（RFC 规定的最小值）576 - 20(IP) - 20(TCP) = 536，这是 RFC 1122 规定的最小 MSS，即任何 TCP 实现都必须能接收至少 536 字节的段
 
 RTO	Retransmission Timeout	重传超时，超时重传
 RTT	Round-Trip Time	往返时间
