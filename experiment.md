@@ -195,6 +195,40 @@ tap0 网卡
    │
    └─ 接收方向：内核从 tap0 收到帧
                   → 帧来自"另一端"写入
+
+TCP状态转换图：
+客户端                          服务器
+──────                          ──────
+CLOSE                           CLOSE
+  │                               │
+  │ connect → 发 SYN              │ listen
+  ▼                               ▼
+SYN_SENT                        LISTEN
+  │                               │
+  │ 收到 SYN-ACK                  │ 收到 SYN
+  │ 发 ACK                        │ 发 SYN-ACK
+  ▼                               ▼
+ESTABLISHED  ◄──── 三次握手 ────  SYN_RECEIVED
+  │                               │ 收到 ACK
+  │                               ▼
+  │                           ESTABLISHED
+  │                               │
+  │ close → 发 FIN                │ 收到 FIN
+  ▼                               │ 发 ACK
+FIN_WAIT_1                        ▼
+  │                           CLOSE_WAIT
+  │ 收到 ACK                      │
+  ▼                               │ close → 发 FIN
+FIN_WAIT_2                        ▼
+  │                           LAST_ACK
+  │ 收到 FIN                      │
+  │ 发 ACK                        │ 收到 ACK
+  ▼                               ▼
+TIME_WAIT                       CLOSE
+  │
+  │ 等 2MSL
+  ▼
+CLOSE
 ```
 # TCP实验流程：
 开启 IP 转发
