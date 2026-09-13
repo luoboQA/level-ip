@@ -206,7 +206,7 @@ CLOSE                           CLOSE
 SYN_SENT                        LISTEN
   │                               │
   │ 收到 SYN-ACK                  │ 收到 SYN
-  │ 发 ACK                        │ 发 SYN-ACK
+  │ 发 ACK                        │创建新 socket 发 SYN-ACK
   ▼                               ▼
 ESTABLISHED  ◄──── 三次握手 ────  SYN_RECEIVED
   │                               │ 收到 ACK
