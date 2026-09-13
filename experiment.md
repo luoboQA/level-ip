@@ -229,6 +229,32 @@ TIME_WAIT                       CLOSE
   │ 等 2MSL
   ▼
 CLOSE
+
+发送方:
+    snd_una          snd_nxt
+       │                │
+       ▼                ▼
+       +----------------+----------------+
+       │  已发已确认     │   已发未确认    │  未发送
+       +----------------+----------------+
+                        │<-- snd_wnd --->│
+
+接收方:
+    rcv_nxt
+       │
+       ▼
+       +----------------+----------------+
+       │   已收已确认    │   可接收窗口    │
+       +----------------+----------------+
+                        │<-- rcv_wnd --->│
+ISS	Initial Send Sequence	初始发送序列号，连接建立时随机生成
+IRS	Initial Receive Sequence	初始接收序列号，对端的 ISS
+ack_seq	acknowledgment number	期望收到的下一个序列号
+snd_una	send unacknowledged	最早未被确认的序列号
+snd_nxt	send next	下一个要发送的序列号
+snd_wnd	send window	发送窗口（对端告知的接收能力）
+rcv_nxt	receive next	期望收到的下一个序列号
+rcv_wnd	receive window	接收窗口（本端还能收多少）
 ```
 # TCP实验流程：
 开启 IP 转发
