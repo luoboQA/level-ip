@@ -14,7 +14,7 @@
 但宿主机内核也有自己的邻居表（ARP 缓存）。
 当内核要转发帧时，如果它的 ARP 表里没有某 IP 的 MAC，就会广播 ARP 询问。
 
-`
+```
 方向 A：Level-IP 发送 → 内核处理
 Level-IP 构造以太网帧
     │  src IP = 10.0.0.4
@@ -126,7 +126,7 @@ tap0 网卡
    │
    └─ 接收方向：内核从 tap0 收到帧
                   → 帧来自"另一端"写入
-`
+```
 # TCP实验流程：
 开启 IP 转发
 sudo sysctl -w net.ipv4.ip_forward=1
