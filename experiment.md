@@ -255,6 +255,26 @@ snd_nxt	send next	下一个要发送的序列号
 snd_wnd	send window	发送窗口（对端告知的接收能力）
 rcv_nxt	receive next	期望收到的下一个序列号
 rcv_wnd	receive window	接收窗口（本端还能收多少）
+
+MTU	Maximum Transmission Unit	链路层最大传输单元（以太网 1500）
+MSS	Maximum Segment Size	TCP 最大段大小
+rmss	receive MSS	本端能接收的最大段
+smss	send MSS	本端发送的最大段
+MSS = MTU - IP 头 - TCP 头
+    = 1500 - 20 - 20
+    = 1460
+tsk->rmss = 1460;   // 默认 1460
+tsk->smss = 536;    // 默认 536（RFC 规定的最小值）
+
+RTO	Retransmission Timeout	重传超时，超时重传
+RTT	Round-Trip Time	往返时间
+
+TCB	Transmission Control Block，TCP 控制块，存连接状态
+ofo_queue	Out-of-Order queue，乱序队列
+receive_queue	接收队列，已按序的数据
+write_queue	发送队列，待发送/待确认的数据
+inflight	已发送未确认的段数
+backoff	重传退避次数
 ```
 # TCP实验流程：
 开启 IP 转发
