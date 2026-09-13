@@ -247,6 +247,64 @@ rcv_nxt
    │   已收已确认    │   可接收窗口    │
    +----------------+----------------+
                     │<-- rcv_wnd --->│
+
+客户端                                    服务器
+──────                                    ──────
+
+tcp_connect:
+├─ 生成 iss = 1000
+├─ 发 SYN (seq=1000, SYN=1)
+├─ 状态 → SYN_SENT
+└─ 启动 RTO ──────────────────────────► 收到 SYN
+                                          │
+                                          ├─ rcv_nxt = 1001
+                                          ├─ 状态 → SYN_RCVD
+                                          └─ 发 SYN-ACK (seq=2000, ack=1001)
+◄────────────────────────────────────────┘
+收到 SYN-ACK:
+├─ 校验 ack_seq = 1001 > iss = 1000 ✓
+├─ rcv_nxt = 2001
+├─ snd_una = 1001
+├─ 状态 → ESTABLISHED
+├─ 发 ACK (seq=1001, ack=2001) ────────► 收到 ACK
+│                                          │
+│                                          ├─ snd_una = 2001
+│                                          └─ 状态 → ESTABLISHED
+└─ connect 返回                             └─ accept 返回
+
+主动关闭方                                    被动关闭方
+─────────                                    ─────────
+
+tcp_close:
+├─ 状态 → FIN_WAIT_1
+├─ 发 FIN (seq=1001, FIN=1, 占一个序号)
+├─ snd_nxt += 1
+└─ 启动 RTO ──────────────────────────────► 收到 FIN
+                                              │
+                                              ├─ rcv_nxt = 1002
+                                              ├─ 回 ACK (ack=1002)
+                                              └─ 状态 → CLOSE_WAIT
+◄────────────────────────────────────────────┘
+收到 ACK:
+├─ snd_una = 1002  (FIN 被确认)
+└─ 状态 → FIN_WAIT_2
+   (仍可接收对端数据，半关闭)
+
+                                             应用调 close:
+                                             ├─ 发 FIN (seq=2001, FIN=1)
+                                             └─ 状态 → LAST_ACK
+◄────────────────────────────────────────────┘
+收到 FIN:
+├─ rcv_nxt += 1
+├─ 回 ACK (ack=2002)
+├─ 状态 → TIME_WAIT
+└─ 启动 2MSL 定时器 ──────────────────────► 收到 ACK
+                                              │
+                                              ├─ 状态 → CLOSE
+                                              └─ 释放 TCB
+
+(2MSL 超时后主动方 → CLOSE，释放 TCB)
+
 ISS	Initial Send Sequence	初始发送序列号，连接建立时随机生成
 IRS	Initial Receive Sequence	初始接收序列号，对端的 ISS
 ack_seq	acknowledgment number	期望收到的下一个序列号
@@ -265,6 +323,14 @@ MSS = MTU - IP 头 - TCP 头
     = 1460（对 IPv4 + 无 TCP 选项成立。如果有 TCP 选项（如 timestamp、SACK），TCP 头会大于 20，MSS 要相应减小）
 tsk->rmss = 1460;   // 默认 1460
 tsk->smss = 536;    // 默认 536（RFC 规定的最小值）576 - 20(IP) - 20(TCP) = 536，这是 RFC 1122 规定的最小 MSS，即任何 TCP 实现都必须能接收至少 536 字节的段
+分片：
+应用 write(10000 字节)
+        │
+        ▼
+TCP 按 MSS=1460 切分：
+[1460][1460][1460][1460][1460][1460][1240]
+  段1   段2   段3   段4   段5   段6   段7
+
 
 RTO	Retransmission Timeout	重传超时，超时重传
 RTT	Round-Trip Time	往返时间
@@ -273,7 +339,7 @@ TCB	Transmission Control Block，TCP 控制块，存连接状态
 ofo_queue	Out-of-Order queue，乱序队列
 receive_queue	接收队列，已按序的数据
 write_queue	发送队列，待发送/待确认的数据
-inflight	已发送未确认的段数
+inflight	已发送未确认ACK的段数
 backoff	重传退避次数
 ```
 # TCP实验流程：
