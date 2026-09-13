@@ -1,10 +1,13 @@
 # 主线
 主线顺序：```APP->liblevelip->IPC->socket->TCP/UDP->IP->DST/Route/ARP->Ethernet->TUN/TAP```
+
 反：```TUN/TAP -> Ethernet -> IP/ARP -> TCP/UDP -> socket -> IPC -> liblevelip -> APP```
 正向是你主动调函数一层层push头构造send下去；反向是CORE线程read(TAP)一层层pull头上来，最后靠wakeup把等在IPC里的APP叫醒
-```宿主机内核网络栈  ←→  TAP 设备 (10.0.0.5)
+```
+宿主机内核网络栈  ←→  TAP 设备 (10.0.0.5)
                           ↑↓ 以太网帧
-本程序协议栈     ←→  netdev (10.0.0.4)```
+本程序协议栈     ←→  netdev (10.0.0.4)
+```
 内核和 Level-IP 各有一套完整的协议栈,网卡（TAP）管到 L2，只搬运以太网帧，不解析。
 
 两个 IP 要同网段，直接通过 ARP + 以太网帧通信，无需网关：
