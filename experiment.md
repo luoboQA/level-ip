@@ -22,6 +22,57 @@
            │   Unix socket                  │
            │   /tmp/lvlip.socket            │
            └────────────────────────────────┘
+
+通道:Unix socket /tmp/lvlip.socket
+应用进程（liblevelip.c）             Level-IP 进程（ipc.c）
+─────────                          ──────────────
+connect(fd, addr)
+    │
+    ▼
+liblevelip.so: connect
+    │
+    ├─ 构造 ipc_msg { IPC_CONNECT, pid, sockfd, addr }
+    │
+    ▼
+transmit_lvlip:
+    _write(lvlfd, msg)  ──────────►  Unix socket
+                                        │
+                                        ▼
+                                  ipc.c: socket_ipc_open
+                                        │
+                                        ├─ read(sockfd, buf)
+                                        │
+                                        ▼
+                                  demux_ipc_socket_call
+                                        │
+                                        ▼
+                                  ipc_connect
+                                        │
+                                        ▼
+                                  socket.c: _connect(pid, ...)
+                                        │
+                                        ▼
+                                  inet.c: inet_stream_connect
+                                        │
+                                        ▼
+                                  tcp.c: 发 SYN
+                                        │
+                                        ▼
+                                  等 SYN-ACK
+                                        │
+                                        ▼
+                                  构造 ipc_msg + ipc_err
+                                        │
+    ◄─────────  Unix socket  ◄───────── ipc_try_send
+    │
+    ▼
+transmit_lvlip:
+    _read(lvlfd, buf)
+    │
+    ├─ 提取 err->rc
+    │
+    ▼
+connect 返回
 ```
 内核和 Level-IP 各有一套完整的协议栈,网卡（TAP）管到 L2，只搬运以太网帧，不解析。
 
