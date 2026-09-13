@@ -2,6 +2,7 @@
 主线顺序：```APP->liblevelip->IPC->socket->TCP/UDP->IP->DST/Route/ARP->Ethernet->TUN/TAP```
 
 反：```TUN/TAP -> Ethernet -> IP/ARP -> TCP/UDP -> socket -> IPC -> liblevelip -> APP```
+
 正向是你主动调函数一层层push头构造send下去；反向是CORE线程read(TAP)一层层pull头上来，最后靠wakeup把等在IPC里的APP叫醒
 ```
 宿主机内核网络栈  ←→  TAP 设备 (10.0.0.5)
