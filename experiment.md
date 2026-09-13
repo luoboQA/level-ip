@@ -2,6 +2,131 @@
 主线顺序：APP->liblevelip->IPC->socket->TCP/UDP->IP->DST/Route/ARP->Ethernet->TUN/TAP
 反：TUN/TAP -> Ethernet -> IP/ARP -> TCP/UDP -> socket -> IPC -> liblevelip -> APP
 正向是你主动调函数一层层push头构造send下去；反向是CORE线程read(TAP)一层层pull头上来，最后靠wakeup把等在IPC里的APP叫醒
+宿主机内核网络栈  ←→  TAP 设备 (10.0.0.5)
+                          ↑↓ 以太网帧
+本程序协议栈     ←→  netdev (10.0.0.4)
+内核和 Level-IP 各有一套完整的协议栈,网卡（TAP）管到 L2，只搬运以太网帧，不解析。
+
+两个 IP 要同网段，直接通过 ARP + 以太网帧通信，无需网关：
+10.0.0.4（程序）和 10.0.0.5（TAP）在 10.0.0.0/24。
+程序发的帧，源 IP 10.0.0.4，经 TAP 到宿主机。
+本程序自己实现 ARP，维护自己的 IP↔MAC 映射。
+但宿主机内核也有自己的邻居表（ARP 缓存）。
+当内核要转发帧时，如果它的 ARP 表里没有某 IP 的 MAC，就会广播 ARP 询问。
+
+'''
+方向 A：Level-IP 发送 → 内核处理
+Level-IP 构造以太网帧
+    │  src IP = 10.0.0.4
+    │  dst IP = ?（决定去向）
+    ▼
+tun_write(fd, frame, len)
+    │
+    ▼
+写入 /dev/net/tap
+    │
+    ▼
+内核从 tap0 收到帧
+    │
+    ▼
+【链路层】检查以太头
+    ├─ 目的 MAC 是 tap0 / 广播 / 组播？
+    │   否 → 丢弃
+    ├─ ethertype = 0x0800 (IP)？
+    │   0x0806 (ARP) → 内核 ARP 处理
+    │   其他        → 丢弃 / 按协议
+    ▼
+【网络层】检查 IP 头
+    ├─ 校验和、版本、长度正确？
+    │   否 → 丢弃
+    ├─ 目的 IP 是谁？
+    │
+    ├─ ① = 10.0.0.5（tap0 本机地址）
+    │      → 内核自己处理
+    │      → 传输层 TCP/UDP/ICMP
+    │      → 交给 socket / 回包
+    │      （帧不回到 Level-IP）
+    │
+    ├─ ② = 10.0.0.4（同网段邻居）
+    │      → 内核转发
+    │      → 查邻居表（ARP 缓存）
+    │          ├─ 有 MAC → 从 tap0 发出
+    │          └─ 无 MAC → 发 ARP 请求
+    │      → 帧从 tap0 发出
+    │      → Level-IP 的 tun_read 读到
+    │      → Level-IP 继续拆（ip_rcv → TCP/UDP）
+    │
+    └─ ③ = 其他网段（如 8.8.8.8）
+           → 查路由表
+               ├─ 有网关 → 从网关接口发出（如 eth0）→ 物理网络
+               └─ 无网关 → 丢弃（ICMP 不可达）
+
+方向 B：外部 → 内核 → Level-IP（接收）
+外部帧 (dst IP = 10.0.0.4, dst MAC = tap0 的 MAC)
+    │
+    ▼
+内核收到帧（从物理网卡 / 路由转发 / 本机进程发出）
+    │
+    ▼
+【链路层】目的 MAC 是 tap0 的 MAC？
+    │  是
+    ▼
+内核把帧"交给 tap0"
+    │
+    ▼
+tap0 的另一端是 /dev/net/tap
+    │
+    ▼
+帧被放进 TAP 的读队列
+    │
+    ▼
+Level-IP 的 tun_read 读到
+    │
+    ▼
+【Level-IP 链路层】netdev_receive 看 ethertype
+    ├─ ARP → arp_rcv
+    ├─ IP  → ip_rcv
+    └─ 其他 → 丢弃
+    │
+    ▼
+【Level-IP 网络层】ip_rcv 看目的 IP
+    ├─ = 10.0.0.4（netdev->addr）？
+    │    是 → 继续拆 → TCP/UDP
+    │    否 → 丢弃（或转发）
+
+方向 C：Level-IP 发送 → 外部（经内核转发） 这是方向 A 的情况 ③单列出来
+Level-IP 构造帧 (src IP = 10.0.0.4, dst IP = 8.8.8.8)
+    │
+    ▼
+tun_write → /dev/net/tap
+    │
+    ▼
+内核从 tap0 收到帧
+    │
+    ▼
+【链路层】检查以太头 ✓
+    │
+    ▼
+【网络层】检查 IP 头
+    │  目的 IP = 8.8.8.8
+    │  不在同网段
+    ▼
+查路由表 → 找默认网关
+    │
+    ▼
+从网关接口发出（如 eth0）
+    │
+    ▼
+物理网络 → 到达 8.8.8.8
+
+tap0 网卡
+   │
+   ├─ 发送方向：内核把帧写入 tap0 的发送队列
+   │              → 队列里的帧等待被"另一端"读走
+   │
+   └─ 接收方向：内核从 tap0 收到帧
+                  → 帧来自"另一端"写入
+'''
 # TCP实验流程：
 开启 IP 转发
 sudo sysctl -w net.ipv4.ip_forward=1
